@@ -1,4 +1,4 @@
-# Copyright 2018-2019 Stanislav Pidhorskyi
+# Copyright 2017 Stanislav Pidhorskyi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,10 +12,17 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+"""Profiling utils"""
 
-from .batch_provider import batch_provider
-from . import mnist_reader
-from . import cifar10_reader
-from . import cifar100_reader
-from . import download
-from . import timer
+import time
+
+
+def timer(f):
+    """Decorator for timeing method execution time"""
+    def __wrapper(*args, **kw):
+        time_start = time.time()
+        result = f(*args, **kw)
+        time_end = time.time()
+        print('func:%r  took: %2.4f sec' % (f.__name__, time_end - time_start))
+        return result
+    return __wrapper
