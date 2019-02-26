@@ -120,3 +120,25 @@ def _download(request_obj, url, directory, file_name, extract_targz, extract_gz,
         print("Extracting...")
         zipfile.ZipFile(file_path, 'r').extractall(directory)
     print("Done")
+
+
+def mnist(directory='mnist'):
+    from_url("http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz", directory, extract_gz=True)
+    from_url("http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz", directory, extract_gz=True)
+    from_url("http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz", directory, extract_gz=True)
+    from_url("http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz", directory, extract_gz=True)
+
+
+def fashion_mnist(directory='fashion-mnist'):
+    from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz", directory, extract_gz=True)
+    from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz", directory, extract_gz=True)
+    from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz", directory, extract_gz=True)
+    from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz", directory, extract_gz=True)
+
+
+def cifar10(directory='cifar10'):
+    from_url("https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz", directory, extract_targz=True)
+
+
+def cifar100(directory='cifar100'):
+    from_url("https://www.cs.toronto.edu/~kriz/cifar-100-binary.tar.gz", directory, extract_targz=True)
