@@ -1,0 +1,12 @@
+*.py[cod]
+*.ckpt
+*.pkl
+*.mat
+
+__pycache__/
+mnist/
+.idea/
+dist/
+dlutils.egg-info/
+bdist/
+build/
