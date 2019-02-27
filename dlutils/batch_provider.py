@@ -94,10 +94,13 @@ def batch_provider(data, batch_size, processor, worker_count=1, queue_size=16, r
             state.quit_event.set()
             while not state.queue.empty():
                 try:
+                    state.lock.acquire()
                     state.queue.get(False)
+                    state.queue.task_done()
                 except Empty:
                     continue
-            state.queue.task_done()
+                finally:
+                    state.lock.release()
 
     class Iterator:
         def __init__(self, batch_count, generator):
@@ -113,7 +116,7 @@ def batch_provider(data, batch_size, processor, worker_count=1, queue_size=16, r
         def __next__(self):
             return self.generator.next()
 
-        #def __del__(self):
-        #    print("Exiting")
+        def __del__(self):
+            print("Exiting")
 
     return Iterator(state.batch_count, _generator())
