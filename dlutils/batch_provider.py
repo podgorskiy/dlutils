@@ -22,22 +22,29 @@ from .progress_bar import ProgressBar
 
 
 def batch_provider(data, batch_size, processor, worker_count=1, queue_size=16, report_progress=False):
+    """
+    Returns iterable object that iterates over a list of data.
+    Custom processing function can be applied to each batch.
+    Processes batches in parallel, and asynchronously fills a queue of next batches.
+    """
+
     class State:
         def __init__(self):
             self.current_batch = 0
             self.lock = Lock()
-            self.batches_count = len(data) // batch_size + (1 if len(data) % batch_size != 0 else 0)
+            self.data_len = len(data)
+            self.batch_count = self.data_len // batch_size + (1 if self.data_len % batch_size != 0 else 0)
             self.quit_event = Event()
             self.queue = Queue(queue_size)
             self.batches_done_count = 0
             self.progress_bar = None
             if report_progress:
-                self.progress_bar = ProgressBar(self.batches_count)
+                self.progress_bar = ProgressBar(self.batch_count)
 
         def get_next_batch_it(self):
             try:
                 self.lock.acquire()
-                if self.quit_event.is_set() or self.current_batch == self.batches_count:
+                if self.quit_event.is_set() or self.current_batch == self.batch_count:
                     raise StopIteration
                 cb = self.current_batch
                 self.current_batch += 1
@@ -54,7 +61,7 @@ def batch_provider(data, batch_size, processor, worker_count=1, queue_size=16, r
                 self.lock.release()
 
         def all_done(self):
-            return self.batches_done_count == self.batches_count and state.queue.empty()
+            return self.batches_done_count == self.batch_count and state.queue.empty()
 
     state = State()
 
@@ -62,30 +69,51 @@ def batch_provider(data, batch_size, processor, worker_count=1, queue_size=16, r
         while not state.quit_event.is_set():
             try:
                 cb = state.get_next_batch_it()
-                data_slice = data[cb * batch_size:min((cb + 1) * batch_size, len(data))]
+                data_slice = data[cb * batch_size:min((cb + 1) * batch_size, state.data_len)]
                 b = processor(data_slice)
                 state.push_done_batch(b)
             except StopIteration:
                 break
 
-    workers = []
-    for i in range(worker_count):
-        worker = Thread(target=_worker)
-        worker.start()
-        workers.append(worker)
-    try:
-        while not state.quit_event.is_set() and not state.all_done():
-            item = state.queue.get()
-            state.queue.task_done()
-            yield item
-            if state.progress_bar is not None:
-                state.progress_bar.increment()
+    def _generator():
+        workers = []
+        for i in range(worker_count):
+            worker = Thread(target=_worker)
+            worker.daemon = True
+            worker.start()
+            workers.append(worker)
+        try:
+            while not state.quit_event.is_set() and not state.all_done():
+                item = state.queue.get()
+                state.queue.task_done()
+                yield item
+                if state.progress_bar is not None:
+                    state.progress_bar.increment()
 
-    except GeneratorExit:
-        state.quit_event.set()
-        while not state.queue.empty():
-            try:
-                state.queue.get(False)
-            except Empty:
-                continue
+        except GeneratorExit:
+            state.quit_event.set()
+            while not state.queue.empty():
+                try:
+                    state.queue.get(False)
+                except Empty:
+                    continue
             state.queue.task_done()
+
+    class Iterator:
+        def __init__(self, batch_count, generator):
+            self.batch_count = batch_count
+            self.generator = generator
+
+        def __len__(self):
+            return self.batch_count
+
+        def __iter__(self):
+            return self.generator
+
+        def __next__(self):
+            return self.generator.next()
+
+        #def __del__(self):
+        #    print("Exiting")
+
+    return Iterator(state.batch_count, _generator())
