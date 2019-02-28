@@ -32,7 +32,33 @@ except ImportError:
 
 
 def from_google_drive(google_drive_fileid, directory=".", file_name=None, extract_targz=False, extract_gz=False, extract_zip=False):
-    """Downloads a file from google drive by file id"""
+    """ Downloads file from Google Drive.
+
+    Given the file ID, file is downloaded from Google Drive and optionally it can be unpacked after downloading
+    completes.
+
+    Note:
+        You need to share the file as ``Anyone who has the link can access. No sign-in required.``. You can find the
+        file ID in the link:
+
+        `https://drive.google.com/file/d/` ``0B3kP5zWXwFm_OUpQbDFqY2dXNGs`` `/view?usp=sharing`
+
+    Args:
+        google_drive_fileid (str): file ID.
+        directory (str): Directory where to save the file
+        file_name (str, optional): If not None, this will overwrite the file name, otherwise it will use the filename
+            returned from http request. Defaults to None.
+        extract_targz (bool): Extract tar.gz archive. Defaults to False.
+        extract_gz (bool): Decompress gz compressed file. Defaults to False.
+        extract_zip (bool): Extract zip archive. Defaults to False.
+
+    Example:
+
+        ::
+
+            dlutils.download.from_google_drive(directory="data/", google_drive_fileid="0B3kP5zWXwFm_OUpQbDFqY2dXNGs")
+
+    """
     url = "https://drive.google.com/uc?export=download&id=" + google_drive_fileid
     cj = cookiejar.CookieJar()
     opener = request.build_opener(request.HTTPCookieProcessor(cj))
@@ -49,13 +75,31 @@ def from_google_drive(google_drive_fileid, directory=".", file_name=None, extrac
 
 
 def from_url(url, directory=".", file_name=None, extract_targz=False, extract_gz=False, extract_zip=False):
-    """Downloads a file from google drive by file id"""
+    """ Downloads file from specified URL.
+
+    Optionally it can be unpacked after downloading completes.
+
+    Args:
+        url (str): file URL.
+        directory (str): Directory where to save the file
+        file_name (str, optional): If not None, this will overwrite the file name, otherwise it will use the filename
+            returned from http request. Defaults to None.
+        extract_targz (bool): Extract tar.gz archive. Defaults to False.
+        extract_gz (bool): Decompress gz compressed file. Defaults to False.
+        extract_zip (bool): Extract zip archive. Defaults to False.
+
+    Example:
+
+        ::
+
+            dlutils.download.from_url("http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz", directory, extract_gz=True)
+
+    """
     request_obj = request.urlopen(url)
     _download(request_obj, url, directory, file_name, extract_targz, extract_gz, extract_zip)
 
 
 def _download(request_obj, url, directory, file_name, extract_targz, extract_gz, extract_zip):
-    """Downloads a file from provided URL or file id at google drive"""
     meta = request_obj.info()
 
     if file_name is None:
@@ -123,6 +167,12 @@ def _download(request_obj, url, directory, file_name, extract_targz, extract_gz,
 
 
 def mnist(directory='mnist'):
+    """Downloads `MNIST <http://yann.lecun.com/exdb/mnist/>`_ Dataset.
+
+    Args:
+        directory (str): Directory where to save the files
+
+    """
     from_url("http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz", directory, extract_gz=True)
     from_url("http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz", directory, extract_gz=True)
     from_url("http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz", directory, extract_gz=True)
@@ -130,6 +180,12 @@ def mnist(directory='mnist'):
 
 
 def fashion_mnist(directory='fashion-mnist'):
+    """Downloads `Fashion-MNIST <https://github.com/zalandoresearch/fashion-mnist>`_ Dataset.
+
+    Args:
+        directory (str): Directory where to save the files
+
+    """
     from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz", directory, extract_gz=True)
     from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz", directory, extract_gz=True)
     from_url("http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz", directory, extract_gz=True)
@@ -137,8 +193,20 @@ def fashion_mnist(directory='fashion-mnist'):
 
 
 def cifar10(directory='cifar10'):
+    """Downloads `CIFAR10 <https://www.cs.toronto.edu/~kriz/cifar.html>`_ Dataset.
+
+    Args:
+        directory (str): Directory where to save the files
+
+    """
     from_url("https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz", directory, extract_targz=True)
 
 
 def cifar100(directory='cifar100'):
+    """Downloads `CIFAR100 <https://www.cs.toronto.edu/~kriz/cifar.html>`_ Dataset.
+
+    Args:
+        directory (str): Directory where to save the files
+
+    """
     from_url("https://www.cs.toronto.edu/~kriz/cifar-100-binary.tar.gz", directory, extract_targz=True)
