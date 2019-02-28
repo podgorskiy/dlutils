@@ -16,15 +16,19 @@ Welcome to dlutils's documentation!
    readme
    batch_provider
    download
+   shuffle
 
 :doc:`readme`
-    Understand what Scrapy is and how it can help you.
+    Intro.
 
 :doc:`batch_provider`
     Batch provider - for parallel batch data processing.
 
 :doc:`download`
     Download - module for downloading and unpacking files.
+
+:doc:`shuffle`
+    Shuffle functions for ndarrays.
 
 	
 Indices and tables
