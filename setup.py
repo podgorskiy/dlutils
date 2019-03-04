@@ -1,6 +1,6 @@
 #
-# Copyright 2019 Stanislav Pidhorskyi. All rights reserved.
-# License: https://raw.githubusercontent.com/podgorskiy/bimpy/master/LICENSE.txt
+# Copyright 2017-2019 Stanislav Pidhorskyi. All rights reserved.
+# License: https://raw.githubusercontent.com/podgorskiy/dlutils/master/LICENSE.txt
 #
 
 from setuptools import setup
@@ -30,12 +30,13 @@ setup(
 
     classifiers=[
         'Development Status :: 3 - Alpha',
-        'License :: OSI Approved :: MIT License',
+        'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6',
+        'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
 
-    keywords='deep-learning extension cpp c pytorch',
+    keywords='deep-learning pytorch tensorflow',
 
     packages=['dlutils'],
 )
