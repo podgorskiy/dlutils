@@ -14,11 +14,12 @@
 # ==============================================================================
 
 from .batch_provider import batch_provider
-from . import mnist_reader
-from . import cifar10_reader
-from . import cifar100_reader
 from . import download
-from . import timer
 from . import epoch
+from . import measures
+from . import random_rotation
+from . import reader
+from . import shuffle
+from . import timer
 
 use_cuda = None

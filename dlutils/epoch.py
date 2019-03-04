@@ -16,6 +16,7 @@ import time
 
 
 class EpochRange:
+    """ Range for iterating epochs """
     def __init__(self, epoch_count, log_func=None):
         self._tracker = LossTracker()
         self._epochs = range(epoch_count).__iter__()
@@ -60,6 +61,8 @@ class RunningMean:
 
 
 class LossTracker:
+    """ Tracker for easy recording and computing mean values of some quanities such as losses. Summary of average values is printed at the end of each epoch.
+    """
     def __init__(self):
         self.tracks = {}
 

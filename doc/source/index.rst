@@ -17,9 +17,13 @@ Welcome to dlutils's documentation!
    batch_provider
    download
    shuffle
+   timer
+   epoch
+   measures
+   reader
 
 :doc:`readme`
-    Intro.
+    About.
 
 :doc:`batch_provider`
     Batch provider - for parallel batch data processing.
@@ -29,6 +33,18 @@ Welcome to dlutils's documentation!
 
 :doc:`shuffle`
     Shuffle functions for ndarrays.
+
+:doc:`timer`
+    Decorator for measuring time
+
+:doc:`epoch`
+    Utils for organizing epoch iterations, printing progress, computing average of losses.
+	
+:doc:`measures`
+    Some specific measures not available out of the box in other packages, e.g. F1 measure for open set problems.
+
+:doc:`reader`
+    Readers from binary MNIST, CIFAR-10, CIFAR-100.
 
 	
 Indices and tables
