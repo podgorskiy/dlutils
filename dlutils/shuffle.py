@@ -76,7 +76,6 @@ def shuffle_ndarrays_in_unison(arrays, axis=0):
         np.take(x, permutation, axis=axis, out=x)
 
 
-
 if __name__ == '__main__':
     a = np.asarray([['a', 'b'], ['c', 'd'], ['e', 'f']])
     b = np.asarray([[1, 5], [0, 2], [0, 1]])

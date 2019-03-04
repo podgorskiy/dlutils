@@ -19,3 +19,6 @@ from . import cifar10_reader
 from . import cifar100_reader
 from . import download
 from . import timer
+from . import epoch
+
+use_cuda = None
