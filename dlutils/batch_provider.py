@@ -155,6 +155,7 @@ def batch_provider(data, batch_size, processor=None, worker_count=1, queue_size=
             self.workers = []
             for i in range(worker_count):
                 worker = Thread(target=_worker, args=(self.state, ))
+                worker.daemon = True
                 worker.start()
                 self.workers.append(worker)
 
@@ -176,17 +177,10 @@ def batch_provider(data, batch_size, processor=None, worker_count=1, queue_size=
                 raise StopIteration
 
         def __del__(self):
-            #print("Exiting")
             self.state.quit_event.set()
             while not self.state.queue.empty():
-                try:
-                    self.state.lock.acquire()
-                    self.state.queue.get(False)
-                    self.state.queue.task_done()
-                except Empty:
-                    continue
-                finally:
-                    self.state.lock.release()
+                self.state.queue.get(False)
+                self.state.queue.task_done()
             for worker in self.workers:
                 worker.join()
 

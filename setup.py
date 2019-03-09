@@ -16,7 +16,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='dlutils',
 
-    version='0.0.1',
+    version='0.0.2',
 
     description='dlutils - collection of boilerplate code, usefull primitives, helpers.',
     long_description=long_description,
@@ -38,5 +38,5 @@ setup(
 
     keywords='deep-learning pytorch tensorflow',
 
-    packages=['dlutils'],
+    packages=['dlutils', 'dlutils.pytorch', 'dlutils.tf'],
 )
