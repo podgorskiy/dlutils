@@ -1,4 +1,4 @@
-# Copyright 2019 Stanislav Pidhorskyi
+# Copyright 2018 Stanislav Pidhorskyi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,6 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 # ==============================================================================
+import math
 
-from . jacobian import jacobian
-from . count_parameters import count_parameters
+
+def millify(n):
+    millnames = ['', 'k', 'M', 'G', 'T', 'P']
+    n = float(n)
+    millidx = max(0, min(len(millnames)-1, int(math.floor(0 if n == 0 else math.log10(abs(n))/3))))
+
+    return '{:.1f}{}'.format(n / 10**(3 * millidx), millnames[millidx])
+
+
+def count_parameters(model, verbose=False):
+    for n, p in model.named_parameters():
+        if p.requires_grad and verbose:
+            print(n, millify(p.numel()))
+    return sum(p.numel() for p in model.parameters() if p.requires_grad)
