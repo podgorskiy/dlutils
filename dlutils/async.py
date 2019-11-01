@@ -19,7 +19,7 @@ import threading
 class AsyncCall(object):
     def __init__(self, fnc, callback=None):
         self.callable = fnc
-        self.callable = callback
+        self.callback = callback
         self.result = None
 
     def __call__(self, *args, **kwargs):
@@ -36,17 +36,17 @@ class AsyncCall(object):
 
     def run(self, *args, **kwargs):
         self.result = self.callable(*args, **kwargs)
-        if self.callable:
-            self.callable(self.result)
+        if self.callback:
+            self.callback(self.result)
 
 
 class AsyncMethod(object):
     def __init__(self, fnc, callback=None):
         self.callable = fnc
-        self.callable = callback
+        self.callback = callback
 
     def __call__(self, *args, **kwargs):
-        return AsyncCall(self.callable, self.callable)(*args, **kwargs)
+        return AsyncCall(self.callable, self.callback)(*args, **kwargs)
 
 
 def async_func(fnc=None, callback=None):
