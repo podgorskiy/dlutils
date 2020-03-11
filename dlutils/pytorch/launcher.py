@@ -39,18 +39,15 @@ def _run(rank, world_size, fn, defaults, write_log, no_cuda, args):
     if not no_cuda:
         torch.cuda.set_device(rank)
 
-    if defaults is not None:
-        cfg = defaults
-        cfg.merge_from_file(args.config_file)
-        cfg.merge_from_list(args.opts)
-        cfg.freeze()
-        output_dir = cfg.OUTPUT_DIR
-    else:
-        output_dir = '.'
+    cfg = defaults
+    cfg.merge_from_file(args.config_file)
+    cfg.merge_from_list(args.opts)
+    cfg.freeze()
 
     logger = logging.getLogger("logger")
     logger.setLevel(logging.DEBUG)
 
+    output_dir = cfg.OUTPUT_DIR
     os.makedirs(output_dir, exist_ok=True)
 
     if rank == 0:
