@@ -25,5 +25,6 @@ from .async import *
 from .pytorch import *
 from .default_cfg import *
 from .tracker import *
+from .numpy_dataset import NumpyDataset
 
 use_cuda = None
