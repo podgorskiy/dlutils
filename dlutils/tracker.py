@@ -149,7 +149,7 @@ class LossTracker:
                 t['values'] = track.values
             else:
                 raise ValueError
-            tracks[key] = track
+            tracks[key] = t
         return {
             'tracks': tracks,
             'epochs': self.epochs,
