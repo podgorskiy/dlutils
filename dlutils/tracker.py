@@ -133,14 +133,44 @@ class LossTracker:
         plt.close()
 
     def state_dict(self):
+        tracks = {}
+        for key, track in tracks.items():
+            t = {}
+            if isinstance(track, RunningMean):
+                t['type'] = RunningMean.__class__.__name__
+                t['_mean'] = track._mean
+                t['n'] = track.n
+            elif isinstance(track, RunningMeanTorch):
+                t['type'] = RunningMeanTorch.__class__.__name__
+                t['values'] = track.values
+            else:
+                raise ValueError
+            tracks[key] = track
         return {
-            'tracks': self.tracks,
+            'tracks': tracks,
             'epochs': self.epochs,
             'means_over_epochs': self.means_over_epochs,
         }
 
     def load_state_dict(self, state_dict):
-        self.tracks = state_dict['tracks']
+        tracks = state_dict['tracks']
+        self.tracks = {}
+        for key, track in tracks.items():
+            if isinstance(track, RunningMean) or isinstance(track, RunningMeanTorch):
+                self.tracks[key] = track
+            else:
+                if track['type'] == RunningMean.__class__.__name__:
+                    rm = RunningMean()
+                    rm._mean = track['_mean']
+                    rm.n = track['n']
+                    self.tracks[key] = rm
+                elif track['type'] == RunningMeanTorch.__class__.__name__:
+                    rm = RunningMeanTorch()
+                    rm.values = track['values']
+                    self.tracks[key] = rm
+                else:
+                    raise ValueError
+
         self.epochs = state_dict['epochs']
         self.means_over_epochs = state_dict['means_over_epochs']
 
