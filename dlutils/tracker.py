@@ -67,6 +67,10 @@ class RunningMeanTorch:
             return float(torch.cat(self.values).mean().item())
 
 
+def isinstance(o, c):
+    return o.__class__.__name__ == c.__name__
+
+
 class LossTracker:
     def __init__(self, output_dir='.'):
         self.tracks = OrderedDict()
@@ -137,11 +141,11 @@ class LossTracker:
         for key, track in tracks.items():
             t = {}
             if isinstance(track, RunningMean):
-                t['type'] = RunningMean.__class__.__name__
+                t['type'] = RunningMean.__name__
                 t['_mean'] = track._mean
                 t['n'] = track.n
             elif isinstance(track, RunningMeanTorch):
-                t['type'] = RunningMeanTorch.__class__.__name__
+                t['type'] = RunningMeanTorch.__name__
                 t['values'] = track.values
             else:
                 raise ValueError
@@ -156,15 +160,15 @@ class LossTracker:
         tracks = state_dict['tracks']
         self.tracks = {}
         for key, track in tracks.items():
-            if track.__class__.__name__ == RunningMean.__class__.__name__ or track.__class__.__name__ == RunningMeanTorch.__class__.__name__:
+            if isinstance(track, RunningMean) or isinstance(track, RunningMeanTorch):
                 self.tracks[key] = track
             else:
-                if track['type'] == RunningMean.__class__.__name__:
+                if track['type'] == RunningMean.__name__:
                     rm = RunningMean()
                     rm._mean = track['_mean']
                     rm.n = track['n']
                     self.tracks[key] = rm
-                elif track['type'] == RunningMeanTorch.__class__.__name__:
+                elif track['type'] == RunningMeanTorch.__name__:
                     rm = RunningMeanTorch()
                     rm.values = track['values']
                     self.tracks[key] = rm
