@@ -1,4 +1,4 @@
-# Copyright 2019 Stanislav Pidhorskyi
+# Copyright 2018-2020 Stanislav Pidhorskyi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -13,10 +13,10 @@
 # limitations under the License.
 # ==============================================================================
 
-from . jacobian import jacobian
-from . count_parameters import count_parameters
-from . launcher import run
-from . import lr_eq_adam
-from . import lr_eq_sgd
-from . import lr_eq
-from . checkpointer import Checkpointer
+from dlutils.pytorch.jacobian import jacobian
+from dlutils.pytorch.count_parameters import count_parameters
+from dlutils.pytorch.launcher import run
+from dlutils.pytorch import lr_eq_adam
+from dlutils.pytorch import lr_eq_sgd
+from dlutils.pytorch import lr_eq
+from dlutils.pytorch.checkpointer import Checkpointer

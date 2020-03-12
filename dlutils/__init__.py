@@ -13,18 +13,23 @@
 # limitations under the License.
 # ==============================================================================
 
-from .batch_provider import batch_provider
-from . import download
-from . import epoch
-from . import measures
-from . import random_rotation
-from . import reader
-from . import shuffle
-from . import timer
-from .async import *
-from .pytorch import *
-from .default_cfg import *
-from .tracker import *
-from .numpy_dataset import NumpyDataset
+from dlutils.batch_provider import batch_provider
+from dlutils import download
+from dlutils import epoch
+from dlutils import measures
+from dlutils import random_rotation
+from dlutils import reader
+from dlutils import shuffle
+from dlutils import timer
+from dlutils.async import *
+from dlutils.default_cfg import *
+from dlutils.tracker import *
+from dlutils.numpy_dataset import NumpyDataset
 
-use_cuda = None
+from dlutils.pytorch.jacobian import jacobian
+from dlutils.pytorch.count_parameters import count_parameters
+from dlutils.pytorch.launcher import run
+from dlutils.pytorch import lr_eq_adam
+from dlutils.pytorch import lr_eq_sgd
+from dlutils.pytorch import lr_eq
+from dlutils.pytorch.checkpointer import Checkpointer
