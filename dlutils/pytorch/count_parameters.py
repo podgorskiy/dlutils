@@ -1,4 +1,4 @@
-# Copyright 2018 Stanislav Pidhorskyi
+# Copyright 2018-2020 Stanislav Pidhorskyi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,8 +23,8 @@ def millify(n):
     return '{:.1f}{}'.format(n / 10**(3 * millidx), millnames[millidx])
 
 
-def count_parameters(model, verbose=False):
+def count_parameters(model, print_func=print, verbose=False):
     for n, p in model.named_parameters():
         if p.requires_grad and verbose:
-            print(n, millify(p.numel()))
+            print_func(n, millify(p.numel()))
     return sum(p.numel() for p in model.parameters() if p.requires_grad)

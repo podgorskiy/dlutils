@@ -21,6 +21,9 @@ from torch.nn.parameter import Parameter
 import numpy as np
 
 
+__all__ = ['Conv2d', 'ConvTranspose2d', 'use_implicit_lreq']
+
+
 class Bool:
     def __init__(self):
         self.value = False
@@ -53,9 +56,9 @@ class Linear(nn.Module):
     def __init__(self, in_features, out_features, bias=True, gain=np.sqrt(2.0), lrmul=1.0, implicit_lreq=use_implicit_lreq):
         super(Linear, self).__init__()
         self.in_features = in_features
-        self.weight = Parameter(torch.Tensor(out_features, in_features))
+        self.weight = Parameter(torch.Tensor(out_features, in_features, dtype=torch.float32))
         if bias:
-            self.bias = Parameter(torch.Tensor(out_features))
+            self.bias = Parameter(torch.Tensor(out_features, dtype=torch.float32))
         else:
             self.register_parameter('bias', None)
         self.std = 0
@@ -111,11 +114,11 @@ class Conv2d(nn.Module):
         self.fan_in = np.prod(self.kernel_size) * in_channels // groups
         self.transform_kernel = transform_kernel
         if transpose:
-            self.weight = Parameter(torch.Tensor(in_channels, out_channels // groups, *self.kernel_size))
+            self.weight = Parameter(torch.Tensor(in_channels, out_channels // groups, *self.kernel_size, dtype=torch.float32))
         else:
-            self.weight = Parameter(torch.Tensor(out_channels, in_channels // groups, *self.kernel_size))
+            self.weight = Parameter(torch.Tensor(out_channels, in_channels // groups, *self.kernel_size, dtype=torch.float32))
         if bias:
-            self.bias = Parameter(torch.Tensor(out_channels))
+            self.bias = Parameter(torch.Tensor(out_channels, dtype=torch.float32))
         else:
             self.register_parameter('bias', None)
         self.std = 0

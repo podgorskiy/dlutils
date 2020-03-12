@@ -15,3 +15,7 @@
 
 from . jacobian import jacobian
 from . count_parameters import count_parameters
+from . launcher import run
+from . import lr_eq_adam
+from . import lr_eq_sgd
+from . checkpointer import Checkpointer

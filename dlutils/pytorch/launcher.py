@@ -1,4 +1,4 @@
-# Copyright 2019 Stanislav Pidhorskyi
+# Copyright 2019-2020 Stanislav Pidhorskyi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -21,6 +21,9 @@ import torch
 import torch.multiprocessing as mp
 from torch import distributed
 import inspect
+
+
+__all__ = ['run']
 
 
 def setup(rank, world_size):

@@ -19,6 +19,9 @@ import torch
 from dlutils import async
 
 
+__all__ = ['Checkpointer']
+
+
 def get_model_dict(x):
     if x is None:
         return None

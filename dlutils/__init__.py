@@ -21,5 +21,6 @@ from . import random_rotation
 from . import reader
 from . import shuffle
 from . import timer
+from .pytorch import *
 
 use_cuda = None
