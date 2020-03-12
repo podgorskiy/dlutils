@@ -19,3 +19,4 @@ from . launcher import run
 from . import lr_eq_adam
 from . import lr_eq_sgd
 from . checkpointer import Checkpointer
+from . numpy_dataset import NumpyDataset

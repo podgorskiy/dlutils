@@ -1,4 +1,4 @@
-# Copyright 2018-2019 Stanislav Pidhorskyi
+# Copyright 2018-2020 Stanislav Pidhorskyi
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -23,5 +23,7 @@ from . import shuffle
 from . import timer
 from .async import *
 from .pytorch import *
+from .default_cfg import *
+from .tracker import *
 
 use_cuda = None

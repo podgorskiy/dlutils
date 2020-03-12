@@ -17,6 +17,7 @@ import csv
 from collections import OrderedDict
 import matplotlib.pyplot as plt
 import numpy as np
+import yacs.config
 try:
     import torch
     has_torch = True
@@ -24,6 +25,9 @@ except ImportError:
     has_torch = False
 
 import os
+
+
+__all__ = ['LossTracker']
 
 
 class RunningMean:
@@ -64,11 +68,11 @@ class RunningMeanTorch:
 
 
 class LossTracker:
-    def __init__(self, output_folder='.'):
+    def __init__(self, output_dir='.'):
         self.tracks = OrderedDict()
         self.epochs = []
         self.means_over_epochs = OrderedDict()
-        self.output_folder = output_folder
+        self.output_dir = output_dir.OUTPUT_DIR if isinstance(output_dir, yacs.config.CfgNode) else output_dir
 
     def update(self, d):
         for k, v in d.items():
@@ -97,7 +101,7 @@ class LossTracker:
             else:
                 self.means_over_epochs[key].append(None)
 
-        with open(os.path.join(self.output_folder, 'log.csv'), mode='w') as csv_file:
+        with open(os.path.join(self.output_dir, 'log.csv'), mode='w') as csv_file:
             fieldnames = ['epoch'] + list(self.tracks.keys())
             writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(fieldnames)
@@ -125,7 +129,7 @@ class LossTracker:
         plt.grid(True)
         plt.tight_layout()
 
-        plt.savefig(os.path.join(self.output_folder, 'plot.png'))
+        plt.savefig(os.path.join(self.output_dir, 'plot.png'))
         plt.close()
 
     def state_dict(self):

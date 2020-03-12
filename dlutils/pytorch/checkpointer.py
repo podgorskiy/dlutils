@@ -16,7 +16,8 @@
 import os
 from torch import nn
 import torch
-from dlutils import async
+from dlutils import async_func
+import yacs.config
 
 
 __all__ = ['Checkpointer']
@@ -42,7 +43,7 @@ class Checkpointer(object):
     def __init__(self, output_dir, models, auxiliary=None, logger=None, save=True):
         self.models = models
         self.auxiliary = auxiliary
-        self.output_dir = output_dir
+        self.output_dir = output_dir.OUTPUT_DIR if isinstance(output_dir, yacs.config.CfgNode) else output_dir
         self.logger = logger
         self._save = save
 
@@ -65,7 +66,7 @@ class Checkpointer(object):
                 data["auxiliary"][name] = item.state_dict()
         data.update(kwargs)
 
-        @async.async_func
+        @async_func
         def save_data():
             save_file = os.path.join(self.output_dir, "%s.pth" % _name)
             self.logger.info("Saving checkpoint to %s" % save_file)
@@ -76,11 +77,12 @@ class Checkpointer(object):
 
     def load(self, ignore_last_checkpoint=False, file_name=None, strict=True):
         save_file = os.path.join(self.output_dir, "last_checkpoint")
+        f = None
         try:
             with open(save_file, "r") as last_checkpoint:
                 f = last_checkpoint.read().strip()
         except IOError:
-            self.logger.info("No checkpoint found. Initializing model from scratch")
+            self.logger.warning("No checkpoint found. Initializing model from scratch")
             if file_name is None:
                 return {}
 
@@ -89,6 +91,10 @@ class Checkpointer(object):
             return {}
         if file_name is not None:
             f = file_name
+
+        if f is None:
+            self.logger.error("Reached unreachable code. Can't load model")
+            return
 
         self.logger.info("Loading checkpoint from {}".format(f))
         checkpoint = torch.load(f, map_location=torch.device("cpu"))
