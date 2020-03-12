@@ -138,7 +138,7 @@ class LossTracker:
 
     def state_dict(self):
         tracks = {}
-        for key, track in tracks.items():
+        for key, track in self.tracks.items():
             t = {}
             if isinstance(track, RunningMean):
                 t['type'] = RunningMean.__name__
@@ -157,6 +157,9 @@ class LossTracker:
         }
 
     def load_state_dict(self, state_dict):
+        self.epochs = state_dict['epochs']
+        self.means_over_epochs = state_dict['means_over_epochs']
+
         tracks = state_dict['tracks']
         self.tracks = {}
         for key, track in tracks.items():
@@ -174,9 +177,6 @@ class LossTracker:
                     self.tracks[key] = rm
                 else:
                     raise ValueError
-
-        self.epochs = state_dict['epochs']
-        self.means_over_epochs = state_dict['means_over_epochs']
 
         counts = list(map(len, self.means_over_epochs.values()))
 
