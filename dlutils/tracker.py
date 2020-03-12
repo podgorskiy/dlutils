@@ -156,7 +156,7 @@ class LossTracker:
         tracks = state_dict['tracks']
         self.tracks = {}
         for key, track in tracks.items():
-            if isinstance(track, RunningMean) or isinstance(track, RunningMeanTorch):
+            if track.__class__.__name__ == RunningMean.__class__.__name__ or track.__class__.__name__ == RunningMeanTorch.__class__.__name__:
                 self.tracks[key] = track
             else:
                 if track['type'] == RunningMean.__class__.__name__:
