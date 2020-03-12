@@ -1,5 +1,5 @@
 #
-# Copyright 2017-2019 Stanislav Pidhorskyi. All rights reserved.
+# Copyright 2017-2020 Stanislav Pidhorskyi. All rights reserved.
 # License: https://raw.githubusercontent.com/podgorskiy/dlutils/master/LICENSE.txt
 #
 
@@ -16,7 +16,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='dlutils',
 
-    version='0.0.6',
+    version='0.0.7',
 
     description='dlutils - collection of boilerplate code, usefull primitives, helpers.',
     long_description=long_description,
