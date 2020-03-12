@@ -28,20 +28,20 @@ import os
 
 class RunningMean:
     def __init__(self):
-        self.mean = 0.0
+        self._mean = 0.0
         self.n = 0
 
     def __iadd__(self, value):
-        self.mean = (float(value) + self.mean * self.n)/(self.n + 1)
+        self._mean = (float(value) + self._mean * self.n)/(self.n + 1)
         self.n += 1
         return self
 
     def reset(self):
-        self.mean = 0.0
+        self._mean = 0.0
         self.n = 0
 
     def mean(self):
-        return self.mean
+        return self._mean
 
 
 class RunningMeanTorch:
@@ -50,7 +50,7 @@ class RunningMeanTorch:
 
     def __iadd__(self, value):
         with torch.no_grad():
-            self.values.append(value.detach().cpu().unsqueeze(0))
+            self.values.append(value.cpu().unsqueeze(0))
             return self
 
     def reset(self):
@@ -73,7 +73,7 @@ class LossTracker:
     def update(self, d):
         for k, v in d.items():
             if k not in self.tracks:
-                self.add(k)
+                self.add(k, isinstance(v, torch.Tensor))
             self.tracks[k] += v
 
     def add(self, name, pytorch=True):
@@ -102,7 +102,10 @@ class LossTracker:
             writer = csv.writer(csv_file, delimiter=',', quotechar='"', quoting=csv.QUOTE_MINIMAL)
             writer.writerow(fieldnames)
             for i in range(len(self.epochs)):
-                writer.writerow([self.epochs[i]] + [self.means_over_epochs[x][i] for x in self.tracks.keys()])
+                try:
+                    writer.writerow([self.epochs[i]] + [self.means_over_epochs[x][-(len(self.epochs) - i)] for x in self.tracks.keys()])
+                except IndexError:
+                    pass
 
     def __str__(self):
         result = ""
@@ -130,13 +133,12 @@ class LossTracker:
             'tracks': self.tracks,
             'epochs': self.epochs,
             'means_over_epochs': self.means_over_epochs,
-            'output_folder': self.output_folder}
+        }
 
     def load_state_dict(self, state_dict):
         self.tracks = state_dict['tracks']
         self.epochs = state_dict['epochs']
         self.means_over_epochs = state_dict['means_over_epochs']
-        self.output_folder = state_dict['output_folder']
 
         counts = list(map(len, self.means_over_epochs.values()))
 
