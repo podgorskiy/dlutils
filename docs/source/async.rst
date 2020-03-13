@@ -1,4 +1,4 @@
-Caching decorator
+Async decorator
 ===================================================
 
-.. autoclass:: dlutils.cache
+.. autofunction:: dlutils.async_func

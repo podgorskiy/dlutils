@@ -15,6 +15,8 @@
 
 import threading
 
+__all__ = ['async_func']
+
 
 class AsyncCall(object):
     def __init__(self, fnc, callback=None):

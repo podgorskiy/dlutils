@@ -1,8 +1,8 @@
 .. _topics-index:
 
-===============================
+=================================================
 Welcome to dlutils |version|  documentation!
-===============================
+=================================================
 
 .. toctree::
    :caption: First steps
@@ -11,12 +11,15 @@ Welcome to dlutils |version|  documentation!
  
    readme
    batch_provider
+   checkpointer
+   run
    download
    shuffle
    timer
    epoch
    measures
    cache
+   async
    reader
 
 :doc:`readme`
@@ -24,6 +27,12 @@ Welcome to dlutils |version|  documentation!
 
 :doc:`batch_provider`
     Batch provider - for parallel batch data processing.
+
+:doc:`checkpointer`
+    Checkpointer - saving/restoring of model/optimizers/schedulers/custom data
+
+:doc:`run`
+    Run - helper for launching distributed parallel training
 
 :doc:`download`
     Download - module for downloading and unpacking files.
@@ -42,6 +51,9 @@ Welcome to dlutils |version|  documentation!
 
 :doc:`cache`
     Decorator  for caching return of functions to pickles.
+
+:doc:`async`
+    Decorator for concurrent execution.
 
 :doc:`reader`
     Readers from binary MNIST, CIFAR-10, CIFAR-100.
