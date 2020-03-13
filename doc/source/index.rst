@@ -1,12 +1,8 @@
 .. _topics-index:
 
 ===============================
-dlutils |version| documentation
+Welcome to dlutils |version|  documentation!
 ===============================
-
-   
-Welcome to dlutils's documentation!
-===================================
 
 .. toctree::
    :caption: First steps
@@ -20,6 +16,7 @@ Welcome to dlutils's documentation!
    timer
    epoch
    measures
+   cache
    reader
 
 :doc:`readme`
@@ -42,6 +39,9 @@ Welcome to dlutils's documentation!
 	
 :doc:`measures`
     Some specific measures not available out of the box in other packages, e.g. F1 measure for open set problems.
+
+:doc:`cache`
+    Decorator  for caching return of functions to pickles.
 
 :doc:`reader`
     Readers from binary MNIST, CIFAR-10, CIFAR-100.

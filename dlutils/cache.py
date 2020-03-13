@@ -20,6 +20,34 @@ import os
 
 
 class cache:
+    """ Caches return value of a functions.
+
+    Given a function with no side effects, it will compute sha256 hash of passed arguments and use that hash to retrieve
+    saved pickle.
+
+    Note:
+        
+        Passed arguments must be picklable.
+        
+        If you change function, or do any other change that invalidates previously saved caches you will need to delete
+        them manually
+        
+        Results are saved to '.cache' folder in current directory.
+    Args:
+        function (function): fucntions to be called.
+
+    Example:
+
+        ::
+
+            @dlutils.cache
+            def expensive_function(x):
+                for i in range(12):
+                    x = x + x * x
+                return x
+
+
+    """
     def __init__(self, function):
         self.function = function
         self.pickle_name = self.function.__name__
@@ -37,3 +65,19 @@ class cache:
             with open(output_path, 'wb') as f:
                 pickle.dump(data, f)
         return data
+
+
+if __name__ == '__main__':
+
+    @cache
+    def expensive_function(x):
+        for i in range(12):
+            x = x + x * x
+        return x
+
+    print(expensive_function(1))
+    print(expensive_function(2))
+    print(expensive_function(5))
+    print(expensive_function(1))
+    print(expensive_function(2))
+    print(expensive_function(5))
