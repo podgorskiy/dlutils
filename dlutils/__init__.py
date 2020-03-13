@@ -21,6 +21,7 @@ from dlutils import random_rotation
 from dlutils import reader
 from dlutils import shuffle
 from dlutils import timer
+from dlutils.save_image import *
 from dlutils.cache import *
 from dlutils.async import *
 from dlutils.default_cfg import *
