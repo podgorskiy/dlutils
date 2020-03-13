@@ -1,0 +1,289 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dlutils.shuffle &mdash; dlutils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> dlutils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">dlutils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../batch_provider.html">Batch provider - for parallel batch data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../checkpointer.html">Checkpointer - saving/restoring of model/optimizers/schedulers/custom data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../run.html">Run - helper for launching distributed parallel training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Download - module for downloading and unpacking files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../shuffle.html">Shuffle functions for ndarrays.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timer.html">Decorator for measuring time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../epoch.html">Utils for organizing epoch iterations, printing progress, computing average of losses.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cache.html">Caching decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../async.html">Async decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reader.html">Readers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dlutils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>dlutils.shuffle</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dlutils.shuffle</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2019 Stanislav Pidhorskyi</span>
+<span class="c1">#</span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1">#</span>
+<span class="c1">#  http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1">#</span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="shuffle_ndarray"><a class="viewcode-back" href="../../shuffle.html#dlutils.shuffle.shuffle_ndarray">[docs]</a><span class="k">def</span> <span class="nf">shuffle_ndarray</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Shuffle slices of ndarray along specific axis.</span>
+
+<span class="sd">    For example, given a 4-dimentional ndarray, which represents a batch of images in BCHW format, one could</span>
+<span class="sd">    shuffle samples in that batch by applying :func:`shuffle_ndarray` with :attr:`axis` = 0.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Function does not return anything. It shuffles ndarray inplace.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x (array_like): ndarray to shuffle.</span>
+<span class="sd">        axis (int, optional): The axis over which to shuffle. Defaults to 0.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            &gt;&gt;&gt; a = np.asarray([[1, 5], [0, 2], [0, 1]])</span>
+<span class="sd">            &gt;&gt;&gt; a</span>
+<span class="sd">            array([[1, 5],</span>
+<span class="sd">                   [0, 2],</span>
+<span class="sd">                   [0, 1]])</span>
+<span class="sd">            &gt;&gt;&gt; dlutils.shuffle.shuffle_ndarray(a, axis=0)</span>
+<span class="sd">            &gt;&gt;&gt; a</span>
+<span class="sd">            array([[0, 2],</span>
+<span class="sd">                   [0, 1],</span>
+<span class="sd">                   [1, 5]])</span>
+<span class="sd">            &gt;&gt;&gt; dlutils.shuffle.shuffle_ndarray(a, axis=1)</span>
+<span class="sd">            &gt;&gt;&gt; a</span>
+<span class="sd">            array([[2, 0],</span>
+<span class="sd">                   [1, 0],</span>
+<span class="sd">                   [5, 1]])</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">]),</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="shuffle_ndarrays_in_unison"><a class="viewcode-back" href="../../shuffle.html#dlutils.shuffle.shuffle_ndarrays_in_unison">[docs]</a><span class="k">def</span> <span class="nf">shuffle_ndarrays_in_unison</span><span class="p">(</span><span class="n">arrays</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Shuffle slices of a list of ndarrays along specific axis with the same permutation for each of the</span>
+<span class="sd">    arrays in the list.</span>
+
+<span class="sd">    Works similar to :func:`shuffle_ndarray`, but applys the same permutation to all arrays in the list</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        Function does not return anything. It shuffles ndarray inplace.</span>
+<span class="sd">        All arrays in the list should have the same shape.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        arrays (list[array_like]): list of ndarrays to shuffle.</span>
+<span class="sd">        axis (int, optional): The axis over which to shuffle. Defaults to 0.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">assert</span><span class="p">(</span><span class="nb">all</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">))</span>
+
+    <span class="n">permutation</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">permutation</span><span class="p">(</span><span class="n">arrays</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="n">axis</span><span class="p">])</span>
+
+    <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">arrays</span><span class="p">:</span>
+        <span class="n">np</span><span class="o">.</span><span class="n">take</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">permutation</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="n">axis</span><span class="p">,</span> <span class="n">out</span><span class="o">=</span><span class="n">x</span><span class="p">)</span></div>
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">,</span> <span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;d&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;e&#39;</span><span class="p">,</span> <span class="s1">&#39;f&#39;</span><span class="p">]])</span>
+    <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+    <span class="n">shuffle_ndarrays_in_unison</span><span class="p">([</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">],</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Stanislav Pidhorskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

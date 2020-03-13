@@ -6,9 +6,9 @@ Welcome to dlutils |version|  documentation!
 
 .. toctree::
    :caption: First steps
-   :maxdepth: 2
+   :maxdepth: 5
    :hidden:
- 
+
    readme
    batch_provider
    checkpointer

@@ -1,0 +1,411 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dlutils.download &mdash; dlutils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> dlutils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../readme.html">dlutils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../batch_provider.html">Batch provider - for parallel batch data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../checkpointer.html">Checkpointer - saving/restoring of model/optimizers/schedulers/custom data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../run.html">Run - helper for launching distributed parallel training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../download.html">Download - module for downloading and unpacking files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../shuffle.html">Shuffle functions for ndarrays.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../timer.html">Decorator for measuring time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../epoch.html">Utils for organizing epoch iterations, printing progress, computing average of losses.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../cache.html">Caching decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../async.html">Async decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../reader.html">Readers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">dlutils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>dlutils.download</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for dlutils.download</h1><div class="highlight"><pre>
+<span></span><span class="c1"># Copyright 2017-2019 Stanislav Pidhorskyi</span>
+<span class="c1"># </span>
+<span class="c1"># Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);</span>
+<span class="c1"># you may not use this file except in compliance with the License.</span>
+<span class="c1"># You may obtain a copy of the License at</span>
+<span class="c1"># </span>
+<span class="c1">#  http://www.apache.org/licenses/LICENSE-2.0</span>
+<span class="c1"># </span>
+<span class="c1"># Unless required by applicable law or agreed to in writing, software</span>
+<span class="c1"># distributed under the License is distributed on an &quot;AS IS&quot; BASIS,</span>
+<span class="c1"># WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.</span>
+<span class="c1"># See the License for the specific language governing permissions and</span>
+<span class="c1"># limitations under the License.</span>
+<span class="c1"># ==============================================================================</span>
+<span class="sd">&quot;&quot;&quot;Module for downloading files, downloading files from google drive, uncompressing targz&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="k">import</span> <span class="n">print_function</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">cgi</span>
+<span class="kn">import</span> <span class="nn">tarfile</span>
+<span class="kn">import</span> <span class="nn">gzip</span>
+<span class="kn">import</span> <span class="nn">shutil</span>
+<span class="kn">import</span> <span class="nn">zipfile</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span> <span class="nn">urllib</span> <span class="k">import</span> <span class="n">request</span>
+    <span class="kn">from</span> <span class="nn">http</span> <span class="k">import</span> <span class="n">cookies</span><span class="p">,</span> <span class="n">cookiejar</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="c1"># Fall back to Python 2</span>
+    <span class="kn">import</span> <span class="nn">urllib2</span> <span class="k">as</span> <span class="nn">request</span>
+    <span class="kn">import</span> <span class="nn">Cookie</span> <span class="k">as</span> <span class="nn">cookies</span>
+    <span class="kn">import</span> <span class="nn">cookielib</span> <span class="k">as</span> <span class="nn">cookiejar</span>
+
+
+<div class="viewcode-block" id="from_google_drive"><a class="viewcode-back" href="../../download.html#dlutils.download.from_google_drive">[docs]</a><span class="k">def</span> <span class="nf">from_google_drive</span><span class="p">(</span><span class="n">google_drive_fileid</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extract_targz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extract_zip</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Downloads file from Google Drive.</span>
+
+<span class="sd">    Given the file ID, file is downloaded from Google Drive and optionally it can be unpacked after downloading</span>
+<span class="sd">    completes.</span>
+
+<span class="sd">    Note:</span>
+<span class="sd">        You need to share the file as ``Anyone who has the link can access. No sign-in required.``. You can find the</span>
+<span class="sd">        file ID in the link:</span>
+
+<span class="sd">        `https://drive.google.com/file/d/` ``0B3kP5zWXwFm_OUpQbDFqY2dXNGs`` `/view?usp=sharing`</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        google_drive_fileid (str): file ID.</span>
+<span class="sd">        directory (str): Directory where to save the file</span>
+<span class="sd">        file_name (str, optional): If not None, this will overwrite the file name, otherwise it will use the filename</span>
+<span class="sd">            returned from http request. Defaults to None.</span>
+<span class="sd">        extract_targz (bool): Extract tar.gz archive. Defaults to False.</span>
+<span class="sd">        extract_gz (bool): Decompress gz compressed file. Defaults to False.</span>
+<span class="sd">        extract_zip (bool): Extract zip archive. Defaults to False.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            dlutils.download.from_google_drive(directory=&quot;data/&quot;, google_drive_fileid=&quot;0B3kP5zWXwFm_OUpQbDFqY2dXNGs&quot;)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://drive.google.com/uc?export=download&amp;id=&quot;</span> <span class="o">+</span> <span class="n">google_drive_fileid</span>
+    <span class="n">cj</span> <span class="o">=</span> <span class="n">cookiejar</span><span class="o">.</span><span class="n">CookieJar</span><span class="p">()</span>
+    <span class="n">opener</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">build_opener</span><span class="p">(</span><span class="n">request</span><span class="o">.</span><span class="n">HTTPCookieProcessor</span><span class="p">(</span><span class="n">cj</span><span class="p">))</span>
+    <span class="n">u</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">cookie</span> <span class="o">=</span> <span class="n">cookies</span><span class="o">.</span><span class="n">SimpleCookie</span><span class="p">()</span>
+    <span class="n">cookie</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">u</span><span class="o">.</span><span class="n">info</span><span class="p">()</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;set-cookie&quot;</span><span class="p">))</span>
+    <span class="n">token</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">key</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">cookie</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+        <span class="k">if</span> <span class="n">key</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s1">&#39;download_warning&#39;</span><span class="p">):</span>
+            <span class="n">token</span> <span class="o">=</span> <span class="n">value</span><span class="o">.</span><span class="n">value</span>
+    <span class="n">url</span> <span class="o">+=</span> <span class="s2">&quot;&amp;confirm=&quot;</span> <span class="o">+</span> <span class="n">token</span>
+    <span class="n">request_obj</span> <span class="o">=</span> <span class="n">opener</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">_download</span><span class="p">(</span><span class="n">request_obj</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">extract_targz</span><span class="p">,</span> <span class="n">extract_gz</span><span class="p">,</span> <span class="n">extract_zip</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="from_url"><a class="viewcode-back" href="../../download.html#dlutils.download.from_url">[docs]</a><span class="k">def</span> <span class="nf">from_url</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">directory</span><span class="o">=</span><span class="s2">&quot;.&quot;</span><span class="p">,</span> <span class="n">file_name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">extract_targz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">extract_zip</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot; Downloads file from specified URL.</span>
+
+<span class="sd">    Optionally it can be unpacked after downloading completes.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        url (str): file URL.</span>
+<span class="sd">        directory (str): Directory where to save the file</span>
+<span class="sd">        file_name (str, optional): If not None, this will overwrite the file name, otherwise it will use the filename</span>
+<span class="sd">            returned from http request. Defaults to None.</span>
+<span class="sd">        extract_targz (bool): Extract tar.gz archive. Defaults to False.</span>
+<span class="sd">        extract_gz (bool): Decompress gz compressed file. Defaults to False.</span>
+<span class="sd">        extract_zip (bool): Extract zip archive. Defaults to False.</span>
+
+<span class="sd">    Example:</span>
+
+<span class="sd">        ::</span>
+
+<span class="sd">            dlutils.download.from_url(&quot;http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz&quot;, directory, extract_gz=True)</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">request_obj</span> <span class="o">=</span> <span class="n">request</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">_download</span><span class="p">(</span><span class="n">request_obj</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">extract_targz</span><span class="p">,</span> <span class="n">extract_gz</span><span class="p">,</span> <span class="n">extract_zip</span><span class="p">)</span></div>
+
+
+<span class="k">def</span> <span class="nf">_download</span><span class="p">(</span><span class="n">request_obj</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">,</span> <span class="n">extract_targz</span><span class="p">,</span> <span class="n">extract_gz</span><span class="p">,</span> <span class="n">extract_zip</span><span class="p">):</span>
+    <span class="n">meta</span> <span class="o">=</span> <span class="n">request_obj</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">file_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">cd</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;content-disposition&quot;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">cd</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>  
+            <span class="n">value</span><span class="p">,</span> <span class="n">params</span> <span class="o">=</span> <span class="n">cgi</span><span class="o">.</span><span class="n">parse_header</span><span class="p">(</span><span class="n">cd</span><span class="p">)</span>
+            <span class="n">cd_file</span> <span class="o">=</span> <span class="n">params</span><span class="p">[</span><span class="s1">&#39;filename&#39;</span><span class="p">]</span>
+            <span class="k">if</span> <span class="n">cd_file</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+                <span class="n">file_name</span> <span class="o">=</span> <span class="n">cd_file</span>
+
+    <span class="k">if</span> <span class="n">file_name</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_name</span> <span class="o">=</span> <span class="n">url</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;/&#39;</span><span class="p">)[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="n">file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">directory</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+    <span class="n">file_size</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">length_header</span> <span class="o">=</span> <span class="n">meta</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;Content-Length&quot;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">length_header</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="n">file_size</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">length_header</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading: </span><span class="si">%s</span><span class="s2"> Bytes: </span><span class="si">%d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="n">file_size</span><span class="p">))</span>
+    <span class="k">else</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Downloading: </span><span class="si">%s</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file_name</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">getsize</span><span class="p">(</span><span class="n">file_path</span><span class="p">)</span> <span class="o">==</span> <span class="n">file_size</span> <span class="ow">or</span> <span class="n">file_size</span> <span class="o">==</span> <span class="mi">0</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;File </span><span class="si">%s</span><span class="s2"> already exists, skipping&quot;</span> <span class="o">%</span> <span class="n">file_path</span><span class="p">)</span>
+        <span class="k">return</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">file_size_dl</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">block_sz</span> <span class="o">=</span> <span class="mi">8192</span>
+        <span class="k">while</span> <span class="kc">True</span><span class="p">:</span>
+            <span class="n">buffer</span> <span class="o">=</span> <span class="n">request_obj</span><span class="o">.</span><span class="n">read</span><span class="p">(</span><span class="n">block_sz</span><span class="p">)</span>
+            <span class="k">if</span> <span class="ow">not</span> <span class="n">buffer</span><span class="p">:</span>
+                <span class="k">break</span>
+
+            <span class="n">file_size_dl</span> <span class="o">+=</span> <span class="nb">len</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="n">buffer</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">file_size</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="si">%10d</span><span class="s2">  [</span><span class="si">%3.2f%%</span><span class="s2">]&quot;</span> <span class="o">%</span> <span class="p">(</span><span class="n">file_size_dl</span><span class="p">,</span> <span class="n">file_size_dl</span> <span class="o">*</span> <span class="mf">100.</span> <span class="o">/</span> <span class="n">file_size</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">status</span> <span class="o">=</span> <span class="s2">&quot;</span><span class="se">\r</span><span class="si">%10d</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">file_size_dl</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">status</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">()</span>
+
+    <span class="k">if</span> <span class="n">extract_targz</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting...&quot;</span><span class="p">)</span>
+        <span class="n">tarfile</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="n">file_path</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;r:gz&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">extract_gz</span><span class="p">:</span>
+        <span class="n">file_out_path</span> <span class="o">=</span> <span class="n">file_path</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;.gz&#39;</span><span class="p">,</span> <span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting...&quot;</span><span class="p">)</span>
+        <span class="k">with</span> <span class="n">gzip</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_in</span><span class="p">:</span>
+            <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_out_path</span><span class="p">,</span> <span class="s1">&#39;wb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f_out</span><span class="p">:</span>
+                <span class="n">shutil</span><span class="o">.</span><span class="n">copyfileobj</span><span class="p">(</span><span class="n">f_in</span><span class="p">,</span> <span class="n">f_out</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">extract_zip</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Extracting...&quot;</span><span class="p">)</span>
+        <span class="n">zipfile</span><span class="o">.</span><span class="n">ZipFile</span><span class="p">(</span><span class="n">file_path</span><span class="p">,</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">extractall</span><span class="p">(</span><span class="n">directory</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Done&quot;</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="mnist"><a class="viewcode-back" href="../../download.html#dlutils.download.mnist">[docs]</a><span class="k">def</span> <span class="nf">mnist</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;mnist&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Downloads `MNIST &lt;http://yann.lecun.com/exdb/mnist/&gt;`_ Dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory (str): Directory where to save the files</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://yann.lecun.com/exdb/mnist/train-labels-idx1-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://yann.lecun.com/exdb/mnist/t10k-images-idx3-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://yann.lecun.com/exdb/mnist/t10k-labels-idx1-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="fashion_mnist"><a class="viewcode-back" href="../../download.html#dlutils.download.fashion_mnist">[docs]</a><span class="k">def</span> <span class="nf">fashion_mnist</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;fashion-mnist&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Downloads `Fashion-MNIST &lt;https://github.com/zalandoresearch/fashion-mnist&gt;`_ Dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory (str): Directory where to save the files</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-images-idx3-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/train-labels-idx1-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-images-idx3-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://fashion-mnist.s3-website.eu-central-1.amazonaws.com/t10k-labels-idx1-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cifar10"><a class="viewcode-back" href="../../download.html#dlutils.download.cifar10">[docs]</a><span class="k">def</span> <span class="nf">cifar10</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;cifar10&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Downloads `CIFAR10 &lt;https://www.cs.toronto.edu/~kriz/cifar.html&gt;`_ Dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory (str): Directory where to save the files</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;https://www.cs.toronto.edu/~kriz/cifar-10-binary.tar.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_targz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="cifar100"><a class="viewcode-back" href="../../download.html#dlutils.download.cifar100">[docs]</a><span class="k">def</span> <span class="nf">cifar100</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s1">&#39;cifar100&#39;</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Downloads `CIFAR100 &lt;https://www.cs.toronto.edu/~kriz/cifar.html&gt;`_ Dataset.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        directory (str): Directory where to save the files</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;https://www.cs.toronto.edu/~kriz/cifar-100-binary.tar.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_targz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Stanislav Pidhorskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

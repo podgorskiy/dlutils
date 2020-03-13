@@ -1,0 +1,295 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Batch provider - for parallel batch data processing &mdash; dlutils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Checkpointer - saving/restoring of model/optimizers/schedulers/custom data" href="checkpointer.html" />
+    <link rel="prev" title="dlutils" href="readme.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dlutils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First steps</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">dlutils</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Batch provider - for parallel batch data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpointer.html">Checkpointer - saving/restoring of model/optimizers/schedulers/custom data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run - helper for launching distributed parallel training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download - module for downloading and unpacking files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shuffle.html">Shuffle functions for ndarrays.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer.html">Decorator for measuring time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="epoch.html">Utils for organizing epoch iterations, printing progress, computing average of losses.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Caching decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">Async decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reader.html">Readers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dlutils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Batch provider - for parallel batch data processing</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/batch_provider.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="batch-provider-for-parallel-batch-data-processing">
+<h1>Batch provider - for parallel batch data processing<a class="headerlink" href="#batch-provider-for-parallel-batch-data-processing" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="dlutils.batch_provider">
+<code class="sig-prename descclassname">dlutils.</code><code class="sig-name descname">batch_provider</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">processor=None</em>, <em class="sig-param">worker_count=1</em>, <em class="sig-param">queue_size=16</em>, <em class="sig-param">report_progress=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/batch_provider.html#batch_provider"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.batch_provider" title="Permalink to this definition">¶</a></dt>
+<dd><p>Return an object that produces a sequence of batches from input data</p>
+<p>Input data is split into batches of size <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code> which are processed with function <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code>
+Data is split and processed by separate threads and dumped into a queue allowing continuous
+provision of data. The main purpose of this primitive is to provide easy to use tool for parallel batch
+processing/generation in background while main thread runs the main algorithm.
+Batches are processed in parallel, allowing better utilization of CPU cores and disk that may improve
+GPU utilization for DL tasks with Storage/IO bottleneck.</p>
+<p>This primitive can be used in various ways. For small datasets, the input <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> list may contain actual
+dataset, while <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> function does from small to no data processing. For larger datasets, <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code>
+list may contain just filenames or keys while <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> function reads data from disk or db.</p>
+<p>There are many purposes that function <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> can be used for, depending on your use case.</p>
+<ul class="simple">
+<li><p>Reading data from disk or db</p></li>
+<li><p>Data decoding, e.g. from JPEG.</p></li>
+<li><p>Augmenting data, flipping, rotating adding nose, etc.</p></li>
+<li><p>Concatenation of data, stacking to single ndarray, conversion to a tensor, uploading to GPU.</p></li>
+<li><p>Data generation.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sequential order of batches is guaranteed only if number of workers is 1 (Default), otherwise batches might
+be supplied out of order.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Input data, each entry in the list should be a separate data point.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Size of a batch. If size of data is not divisible by <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code>, then
+the last batch will have smaller size.</p></li>
+<li><p><strong>processor</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>]</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – Function for processing batches. Receives slice of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code>
+list as input. Can return object of any type. Defaults to None.</p></li>
+<li><p><strong>worker_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Number of workers, should be greater or equal to one. To process data in parallel
+and fully load CPU <code class="xref py py-attr docutils literal notranslate"><span class="pre">worker_count</span></code> should be close to the number of CPU cores. Defaults to one.</p></li>
+<li><p><strong>queue_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size of the queue, which is number of batches to buffer. Should be larger
+than <code class="xref py py-attr docutils literal notranslate"><span class="pre">worker_count</span></code>. Typically, one would want this to be as large as possible to amortize all disk
+IO and computational costs. Downside of large value is increased RAM consumption. Defaults to 16.</p></li>
+<li><p><strong>report_progress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Print a progress bar similar to <cite>tqdm</cite>. You still may use <cite>tqdm</cite> if you set
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">report_progress</span></code> to False. To use <cite>tqdm</cite> just do</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">batch_provider</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Defaults to True.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An object that produces a sequence of batches. <code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code> method of the iterator will return
+object that was produced by <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Iterator</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#StopIteration" title="(in Python v3.8)"><strong>StopIteration</strong></a> – When all data was iterated through. Stops the for loop.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">misc</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">labeles</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+    <span class="n">labeles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">labeles</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">labeles</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;some_list.jpg&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;of_filenames.jpg&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;etc.jpg&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="c1"># filenames and labels</span>
+<span class="n">batches</span> <span class="o">=</span> <span class="n">dlutils</span><span class="o">.</span><span class="n">batch_provider</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">process</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labeles</span> <span class="ow">in</span> <span class="n">batches</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">nll_loss</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">labeles</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="checkpointer.html" class="btn btn-neutral float-right" title="Checkpointer - saving/restoring of model/optimizers/schedulers/custom data" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="readme.html" class="btn btn-neutral float-left" title="dlutils" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Stanislav Pidhorskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

@@ -1,0 +1,240 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Measures &mdash; dlutils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Caching decorator" href="cache.html" />
+    <link rel="prev" title="Utils for organizing epoch iterations, printing progress, computing average of losses." href="epoch.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dlutils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First steps</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">dlutils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_provider.html">Batch provider - for parallel batch data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpointer.html">Checkpointer - saving/restoring of model/optimizers/schedulers/custom data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run - helper for launching distributed parallel training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download - module for downloading and unpacking files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shuffle.html">Shuffle functions for ndarrays.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer.html">Decorator for measuring time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="epoch.html">Utils for organizing epoch iterations, printing progress, computing average of losses.</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Caching decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">Async decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reader.html">Readers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dlutils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Measures</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/measures.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="measures">
+<h1>Measures<a class="headerlink" href="#measures" title="Permalink to this headline">¶</a></h1>
+<p>Some specific measures not available out of the box in other packages, e.g. F1 measure for open set problems.</p>
+<dl class="function">
+<dt id="dlutils.measures.openset_f1">
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">openset_f1</code><span class="sig-paren">(</span><em class="sig-param">label_inlier</em>, <em class="sig-param">prediction_inlier</em>, <em class="sig-param">threshold</em>, <em class="sig-param">correctly_classified</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#openset_f1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.measures.openset_f1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dlutils.measures.f1">
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">f1</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">prediction</em>, <em class="sig-param">threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#f1"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.measures.f1" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dlutils.measures.auc">
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">auc</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">prediction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#auc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.measures.auc" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dlutils.measures.f1_from_tp_fp_fn">
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">f1_from_tp_fp_fn</code><span class="sig-paren">(</span><em class="sig-param">true_positive</em>, <em class="sig-param">false_positive</em>, <em class="sig-param">false_negative</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#f1_from_tp_fp_fn"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.measures.f1_from_tp_fp_fn" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt id="dlutils.measures.f1_from_pr">
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">f1_from_pr</code><span class="sig-paren">(</span><em class="sig-param">precision</em>, <em class="sig-param">recall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#f1_from_pr"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.measures.f1_from_pr" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="cache.html" class="btn btn-neutral float-right" title="Caching decorator" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="epoch.html" class="btn btn-neutral float-left" title="Utils for organizing epoch iterations, printing progress, computing average of losses." accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Stanislav Pidhorskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

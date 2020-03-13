@@ -1,0 +1,339 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Download - module for downloading and unpacking files &mdash; dlutils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Shuffle functions for ndarrays." href="shuffle.html" />
+    <link rel="prev" title="Run - helper for launching distributed parallel training" href="run.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dlutils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First steps</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="readme.html">dlutils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_provider.html">Batch provider - for parallel batch data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpointer.html">Checkpointer - saving/restoring of model/optimizers/schedulers/custom data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run - helper for launching distributed parallel training</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Download - module for downloading and unpacking files</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#download-from-google-drive">Download from Google Drive</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-from-url">Download from URL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-mnist">Download MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-fashion-mnist">Download Fashion-MNIST</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-cifar-10">Download CIFAR-10</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#download-cifar-100">Download CIFAR-100</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="shuffle.html">Shuffle functions for ndarrays.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer.html">Decorator for measuring time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="epoch.html">Utils for organizing epoch iterations, printing progress, computing average of losses.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Caching decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">Async decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reader.html">Readers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dlutils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Download - module for downloading and unpacking files</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/download.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="download-module-for-downloading-and-unpacking-files">
+<h1>Download - module for downloading and unpacking files<a class="headerlink" href="#download-module-for-downloading-and-unpacking-files" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="download-from-google-drive">
+<h2>Download from Google Drive<a class="headerlink" href="#download-from-google-drive" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dlutils.download.from_google_drive">
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">from_google_drive</code><span class="sig-paren">(</span><em class="sig-param">google_drive_fileid</em>, <em class="sig-param">directory='.'</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">extract_targz=False</em>, <em class="sig-param">extract_gz=False</em>, <em class="sig-param">extract_zip=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#from_google_drive"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.download.from_google_drive" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads file from Google Drive.</p>
+<p>Given the file ID, file is downloaded from Google Drive and optionally it can be unpacked after downloading
+completes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to share the file as <code class="docutils literal notranslate"><span class="pre">Anyone</span> <span class="pre">who</span> <span class="pre">has</span> <span class="pre">the</span> <span class="pre">link</span> <span class="pre">can</span> <span class="pre">access.</span> <span class="pre">No</span> <span class="pre">sign-in</span> <span class="pre">required.</span></code>. You can find the
+file ID in the link:</p>
+<p><cite>https://drive.google.com/file/d/</cite> <code class="docutils literal notranslate"><span class="pre">0B3kP5zWXwFm_OUpQbDFqY2dXNGs</span></code> <cite>/view?usp=sharing</cite></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>google_drive_fileid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – file ID.</p></li>
+<li><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the file</p></li>
+<li><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – If not None, this will overwrite the file name, otherwise it will use the filename
+returned from http request. Defaults to None.</p></li>
+<li><p><strong>extract_targz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract tar.gz archive. Defaults to False.</p></li>
+<li><p><strong>extract_gz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Decompress gz compressed file. Defaults to False.</p></li>
+<li><p><strong>extract_zip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract zip archive. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlutils</span><span class="o">.</span><span class="n">download</span><span class="o">.</span><span class="n">from_google_drive</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s2">&quot;data/&quot;</span><span class="p">,</span> <span class="n">google_drive_fileid</span><span class="o">=</span><span class="s2">&quot;0B3kP5zWXwFm_OUpQbDFqY2dXNGs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="download-from-url">
+<h2>Download from URL<a class="headerlink" href="#download-from-url" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dlutils.download.from_url">
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">from_url</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">directory='.'</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">extract_targz=False</em>, <em class="sig-param">extract_gz=False</em>, <em class="sig-param">extract_zip=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#from_url"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.download.from_url" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads file from specified URL.</p>
+<p>Optionally it can be unpacked after downloading completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – file URL.</p></li>
+<li><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the file</p></li>
+<li><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – If not None, this will overwrite the file name, otherwise it will use the filename
+returned from http request. Defaults to None.</p></li>
+<li><p><strong>extract_targz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract tar.gz archive. Defaults to False.</p></li>
+<li><p><strong>extract_gz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Decompress gz compressed file. Defaults to False.</p></li>
+<li><p><strong>extract_zip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract zip archive. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlutils</span><span class="o">.</span><span class="n">download</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="download-mnist">
+<h2>Download MNIST<a class="headerlink" href="#download-mnist" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dlutils.download.mnist">
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">mnist</code><span class="sig-paren">(</span><em class="sig-param">directory='mnist'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#mnist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.download.mnist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">MNIST</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="download-fashion-mnist">
+<h2>Download Fashion-MNIST<a class="headerlink" href="#download-fashion-mnist" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dlutils.download.fashion_mnist">
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">fashion_mnist</code><span class="sig-paren">(</span><em class="sig-param">directory='fashion-mnist'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#fashion_mnist"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.download.fashion_mnist" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads <a class="reference external" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="download-cifar-10">
+<h2>Download CIFAR-10<a class="headerlink" href="#download-cifar-10" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dlutils.download.cifar10">
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">cifar10</code><span class="sig-paren">(</span><em class="sig-param">directory='cifar10'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#cifar10"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.download.cifar10" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR10</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="download-cifar-100">
+<h2>Download CIFAR-100<a class="headerlink" href="#download-cifar-100" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="dlutils.download.cifar100">
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">cifar100</code><span class="sig-paren">(</span><em class="sig-param">directory='cifar100'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#cifar100"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.download.cifar100" title="Permalink to this definition">¶</a></dt>
+<dd><p>Downloads <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR100</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="shuffle.html" class="btn btn-neutral float-right" title="Shuffle functions for ndarrays." accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="run.html" class="btn btn-neutral float-left" title="Run - helper for launching distributed parallel training" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Stanislav Pidhorskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

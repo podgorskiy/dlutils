@@ -1,0 +1,763 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>dlutils package &mdash; dlutils  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> dlutils
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">First steps</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="readme.html">dlutils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="batch_provider.html">Batch provider - for parallel batch data processing</a></li>
+<li class="toctree-l1"><a class="reference internal" href="checkpointer.html">Checkpointer - saving/restoring of model/optimizers/schedulers/custom data</a></li>
+<li class="toctree-l1"><a class="reference internal" href="run.html">Run - helper for launching distributed parallel training</a></li>
+<li class="toctree-l1"><a class="reference internal" href="download.html">Download - module for downloading and unpacking files</a></li>
+<li class="toctree-l1"><a class="reference internal" href="shuffle.html">Shuffle functions for ndarrays.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="timer.html">Decorator for measuring time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="epoch.html">Utils for organizing epoch iterations, printing progress, computing average of losses.</a></li>
+<li class="toctree-l1"><a class="reference internal" href="measures.html">Measures</a></li>
+<li class="toctree-l1"><a class="reference internal" href="cache.html">Caching decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="async.html">Async decorator</a></li>
+<li class="toctree-l1"><a class="reference internal" href="reader.html">Readers</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">dlutils</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>dlutils package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/dlutils.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="dlutils-package">
+<h1>dlutils package<a class="headerlink" href="#dlutils-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="dlutils-async-module">
+<h2>dlutils.async module<a class="headerlink" href="#dlutils-async-module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.</code><code class="sig-name descname">async_func</code><span class="sig-paren">(</span><em class="sig-param">fnc=None</em>, <em class="sig-param">callback=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/async.html#async_func"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="dlutils-batch-provider-module">
+<h2>dlutils.batch_provider module<a class="headerlink" href="#dlutils-batch-provider-module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.</code><code class="sig-name descname">batch_provider</code><span class="sig-paren">(</span><em class="sig-param">data</em>, <em class="sig-param">batch_size</em>, <em class="sig-param">processor=None</em>, <em class="sig-param">worker_count=1</em>, <em class="sig-param">queue_size=16</em>, <em class="sig-param">report_progress=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/batch_provider.html#batch_provider"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Return an object that produces a sequence of batches from input data</p>
+<p>Input data is split into batches of size <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code> which are processed with function <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code>
+Data is split and processed by separate threads and dumped into a queue allowing continuous
+provision of data. The main purpose of this primitive is to provide easy to use tool for parallel batch
+processing/generation in background while main thread runs the main algorithm.
+Batches are processed in parallel, allowing better utilization of CPU cores and disk that may improve
+GPU utilization for DL tasks with Storage/IO bottleneck.</p>
+<p>This primitive can be used in various ways. For small datasets, the input <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code> list may contain actual
+dataset, while <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> function does from small to no data processing. For larger datasets, <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code>
+list may contain just filenames or keys while <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> function reads data from disk or db.</p>
+<p>There are many purposes that function <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> can be used for, depending on your use case.</p>
+<ul class="simple">
+<li><p>Reading data from disk or db</p></li>
+<li><p>Data decoding, e.g. from JPEG.</p></li>
+<li><p>Augmenting data, flipping, rotating adding nose, etc.</p></li>
+<li><p>Concatenation of data, stacking to single ndarray, conversion to a tensor, uploading to GPU.</p></li>
+<li><p>Data generation.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Sequential order of batches is guaranteed only if number of workers is 1 (Default), otherwise batches might
+be supplied out of order.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>data</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a>) – Input data, each entry in the list should be a separate data point.</p></li>
+<li><p><strong>batch_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a>) – Size of a batch. If size of data is not divisible by <code class="xref py py-attr docutils literal notranslate"><span class="pre">batch_size</span></code>, then
+the last batch will have smaller size.</p></li>
+<li><p><strong>processor</strong> (<em>Callable</em><em>[</em><em>[</em><a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>]</em><em>, </em><em>Any</em><em>]</em><em>, </em><em>optional</em>) – Function for processing batches. Receives slice of the <code class="xref py py-attr docutils literal notranslate"><span class="pre">data</span></code>
+list as input. Can return object of any type. Defaults to None.</p></li>
+<li><p><strong>worker_count</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Number of workers, should be greater or equal to one. To process data in parallel
+and fully load CPU <code class="xref py py-attr docutils literal notranslate"><span class="pre">worker_count</span></code> should be close to the number of CPU cores. Defaults to one.</p></li>
+<li><p><strong>queue_size</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – Maximum size of the queue, which is number of batches to buffer. Should be larger
+than <code class="xref py py-attr docutils literal notranslate"><span class="pre">worker_count</span></code>. Typically, one would want this to be as large as possible to amortize all disk
+IO and computational costs. Downside of large value is increased RAM consumption. Defaults to 16.</p></li>
+<li><p><strong>report_progress</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a><em>, </em><em>optional</em>) – <p>Print a progress bar similar to <cite>tqdm</cite>. You still may use <cite>tqdm</cite> if you set
+<code class="xref py py-attr docutils literal notranslate"><span class="pre">report_progress</span></code> to False. To use <cite>tqdm</cite> just do</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="n">batch_provider</span><span class="p">(</span><span class="o">...</span><span class="p">)):</span>
+    <span class="o">...</span>
+</pre></div>
+</div>
+<p>Defaults to True.</p>
+</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>An object that produces a sequence of batches. <code class="xref py py-meth docutils literal notranslate"><span class="pre">next()</span></code> method of the iterator will return
+object that was produced by <code class="xref py py-attr docutils literal notranslate"><span class="pre">processor</span></code> function</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Iterator</p>
+</dd>
+<dt class="field-even">Raises</dt>
+<dd class="field-even"><p><a class="reference external" href="https://docs.python.org/3/library/exceptions.html#StopIteration" title="(in Python v3.8)"><strong>StopIteration</strong></a> – When all data was iterated through. Stops the for loop.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">process</span><span class="p">(</span><span class="n">batch</span><span class="p">):</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="p">[</span><span class="n">misc</span><span class="o">.</span><span class="n">imread</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">images</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">float32</span><span class="p">)</span>
+    <span class="n">images</span> <span class="o">=</span> <span class="n">images</span><span class="o">.</span><span class="n">transpose</span><span class="p">((</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
+    <span class="n">labeles</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">batch</span><span class="p">]</span>
+    <span class="n">labeles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">(</span><span class="n">labeles</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">int</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">images</span><span class="p">)</span> <span class="o">/</span> <span class="mf">255.0</span><span class="p">,</span> <span class="n">torch</span><span class="o">.</span><span class="n">from_numpy</span><span class="p">(</span><span class="n">labeles</span><span class="p">)</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[(</span><span class="s1">&#39;some_list.jpg&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;of_filenames.jpg&#39;</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="s1">&#39;etc.jpg&#39;</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="o">...</span><span class="p">]</span> <span class="c1"># filenames and labels</span>
+<span class="n">batches</span> <span class="o">=</span> <span class="n">dlutils</span><span class="o">.</span><span class="n">batch_provider</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="mi">32</span><span class="p">,</span> <span class="n">process</span><span class="p">)</span>
+
+<span class="k">for</span> <span class="n">images</span><span class="p">,</span> <span class="n">labeles</span> <span class="ow">in</span> <span class="n">batches</span><span class="p">:</span>
+    <span class="n">result</span> <span class="o">=</span> <span class="n">model</span><span class="p">(</span><span class="n">images</span><span class="p">)</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="n">F</span><span class="o">.</span><span class="n">nll_loss</span><span class="p">(</span><span class="n">result</span><span class="p">,</span> <span class="n">labeles</span><span class="p">)</span>
+    <span class="n">loss</span><span class="o">.</span><span class="n">backward</span><span class="p">()</span>
+    <span class="n">optimizer</span><span class="o">.</span><span class="n">step</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-cache-module">
+<h2>dlutils.cache module<a class="headerlink" href="#dlutils-cache-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt id="dlutils.cache">
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.</code><code class="sig-name descname">cache</code><span class="sig-paren">(</span><em class="sig-param">function</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/cache.html#cache"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#dlutils.cache" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Caches return value of a functions.</p>
+<p>Given a function with no side effects, it will compute sha256 hash of passed arguments and use that hash to retrieve
+saved pickle.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Passed arguments must be picklable.</p>
+<p>If you change function, or do any other change that invalidates previously saved caches you will need to delete
+them manually</p>
+<p>Results are saved to ‘.cache’ folder in current directory.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>function</strong> (<em>function</em>) – fucntions to be called.</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nd">@dlutils</span><span class="o">.</span><span class="n">cache</span>
+<span class="k">def</span> <span class="nf">expensive_function</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">12</span><span class="p">):</span>
+        <span class="n">x</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">x</span> <span class="o">*</span> <span class="n">x</span>
+    <span class="k">return</span> <span class="n">x</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-default-cfg-module">
+<h2>dlutils.default_cfg module<a class="headerlink" href="#dlutils-default-cfg-module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.default_cfg.</code><code class="sig-name descname">get_default_cfg</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/default_cfg.html#get_default_cfg"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="dlutils-download-module">
+<h2>dlutils.download module<a class="headerlink" href="#dlutils-download-module" title="Permalink to this headline">¶</a></h2>
+<p>Module for downloading files, downloading files from google drive, uncompressing targz</p>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">cifar10</code><span class="sig-paren">(</span><em class="sig-param">directory='cifar10'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#cifar10"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Downloads <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR10</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">cifar100</code><span class="sig-paren">(</span><em class="sig-param">directory='cifar100'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#cifar100"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Downloads <a class="reference external" href="https://www.cs.toronto.edu/~kriz/cifar.html">CIFAR100</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">fashion_mnist</code><span class="sig-paren">(</span><em class="sig-param">directory='fashion-mnist'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#fashion_mnist"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Downloads <a class="reference external" href="https://github.com/zalandoresearch/fashion-mnist">Fashion-MNIST</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">from_google_drive</code><span class="sig-paren">(</span><em class="sig-param">google_drive_fileid</em>, <em class="sig-param">directory='.'</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">extract_targz=False</em>, <em class="sig-param">extract_gz=False</em>, <em class="sig-param">extract_zip=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#from_google_drive"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Downloads file from Google Drive.</p>
+<p>Given the file ID, file is downloaded from Google Drive and optionally it can be unpacked after downloading
+completes.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>You need to share the file as <code class="docutils literal notranslate"><span class="pre">Anyone</span> <span class="pre">who</span> <span class="pre">has</span> <span class="pre">the</span> <span class="pre">link</span> <span class="pre">can</span> <span class="pre">access.</span> <span class="pre">No</span> <span class="pre">sign-in</span> <span class="pre">required.</span></code>. You can find the
+file ID in the link:</p>
+<p><cite>https://drive.google.com/file/d/</cite> <code class="docutils literal notranslate"><span class="pre">0B3kP5zWXwFm_OUpQbDFqY2dXNGs</span></code> <cite>/view?usp=sharing</cite></p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>google_drive_fileid</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – file ID.</p></li>
+<li><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the file</p></li>
+<li><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – If not None, this will overwrite the file name, otherwise it will use the filename
+returned from http request. Defaults to None.</p></li>
+<li><p><strong>extract_targz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract tar.gz archive. Defaults to False.</p></li>
+<li><p><strong>extract_gz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Decompress gz compressed file. Defaults to False.</p></li>
+<li><p><strong>extract_zip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract zip archive. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlutils</span><span class="o">.</span><span class="n">download</span><span class="o">.</span><span class="n">from_google_drive</span><span class="p">(</span><span class="n">directory</span><span class="o">=</span><span class="s2">&quot;data/&quot;</span><span class="p">,</span> <span class="n">google_drive_fileid</span><span class="o">=</span><span class="s2">&quot;0B3kP5zWXwFm_OUpQbDFqY2dXNGs&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">from_url</code><span class="sig-paren">(</span><em class="sig-param">url</em>, <em class="sig-param">directory='.'</em>, <em class="sig-param">file_name=None</em>, <em class="sig-param">extract_targz=False</em>, <em class="sig-param">extract_gz=False</em>, <em class="sig-param">extract_zip=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#from_url"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Downloads file from specified URL.</p>
+<p>Optionally it can be unpacked after downloading completes.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>url</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – file URL.</p></li>
+<li><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the file</p></li>
+<li><p><strong>file_name</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a><em>, </em><em>optional</em>) – If not None, this will overwrite the file name, otherwise it will use the filename
+returned from http request. Defaults to None.</p></li>
+<li><p><strong>extract_targz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract tar.gz archive. Defaults to False.</p></li>
+<li><p><strong>extract_gz</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Decompress gz compressed file. Defaults to False.</p></li>
+<li><p><strong>extract_zip</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#bool" title="(in Python v3.8)"><em>bool</em></a>) – Extract zip archive. Defaults to False.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">dlutils</span><span class="o">.</span><span class="n">download</span><span class="o">.</span><span class="n">from_url</span><span class="p">(</span><span class="s2">&quot;http://yann.lecun.com/exdb/mnist/train-images-idx3-ubyte.gz&quot;</span><span class="p">,</span> <span class="n">directory</span><span class="p">,</span> <span class="n">extract_gz</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.download.</code><code class="sig-name descname">mnist</code><span class="sig-paren">(</span><em class="sig-param">directory='mnist'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/download.html#mnist"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Downloads <a class="reference external" href="http://yann.lecun.com/exdb/mnist/">MNIST</a> Dataset.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>directory</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#str" title="(in Python v3.8)"><em>str</em></a>) – Directory where to save the files</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-epoch-module">
+<h2>dlutils.epoch module<a class="headerlink" href="#dlutils-epoch-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.epoch.</code><code class="sig-name descname">EpochRange</code><span class="sig-paren">(</span><em class="sig-param">epoch_count</em>, <em class="sig-param">log_func=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/epoch.html#EpochRange"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Range for iterating epochs</p>
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.epoch.</code><code class="sig-name descname">LossTracker</code><a class="reference internal" href="_modules/dlutils/epoch.html#LossTracker"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Tracker for easy recording and computing mean values of some quanities such as losses. Summary of average values is printed at the end of each epoch.</p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">format_str='%s: %.3f'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/epoch.html#LossTracker.add"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">reset</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/epoch.html#LossTracker.reset"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.epoch.</code><code class="sig-name descname">RunningMean</code><a class="reference internal" href="_modules/dlutils/epoch.html#RunningMean"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-measures-module">
+<h2>dlutils.measures module<a class="headerlink" href="#dlutils-measures-module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">auc</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">prediction</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#auc"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">f1</code><span class="sig-paren">(</span><em class="sig-param">label</em>, <em class="sig-param">prediction</em>, <em class="sig-param">threshold</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#f1"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">f1_from_pr</code><span class="sig-paren">(</span><em class="sig-param">precision</em>, <em class="sig-param">recall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#f1_from_pr"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">f1_from_tp_fp_fn</code><span class="sig-paren">(</span><em class="sig-param">true_positive</em>, <em class="sig-param">false_positive</em>, <em class="sig-param">false_negative</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#f1_from_tp_fp_fn"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.measures.</code><code class="sig-name descname">openset_f1</code><span class="sig-paren">(</span><em class="sig-param">label_inlier</em>, <em class="sig-param">prediction_inlier</em>, <em class="sig-param">threshold</em>, <em class="sig-param">correctly_classified</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/measures.html#openset_f1"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="dlutils-numpy-dataset-module">
+<h2>dlutils.numpy_dataset module<a class="headerlink" href="#dlutils-numpy-dataset-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.numpy_dataset.</code><code class="sig-name descname">NumpyDataset</code><span class="sig-paren">(</span><em class="sig-param">data</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/numpy_dataset.html#NumpyDataset"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt>
+<em class="property">static </em><code class="sig-name descname">list_of_pairs_to_numpy</code><span class="sig-paren">(</span><em class="sig-param">l</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/numpy_dataset.html#NumpyDataset.list_of_pairs_to_numpy"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">shuffle</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/numpy_dataset.html#NumpyDataset.shuffle"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-progress-bar-module">
+<h2>dlutils.progress_bar module<a class="headerlink" href="#dlutils-progress-bar-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.progress_bar.</code><code class="sig-name descname">ProgressBar</code><span class="sig-paren">(</span><em class="sig-param">total_iterations</em>, <em class="sig-param">prefix='Progress:'</em>, <em class="sig-param">suffix=''</em>, <em class="sig-param">decimals=1</em>, <em class="sig-param">length=None</em>, <em class="sig-param">fill='#'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/progress_bar.html#ProgressBar"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">increment</code><span class="sig-paren">(</span><em class="sig-param">val=1</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/progress_bar.html#ProgressBar.increment"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-random-rotation-module">
+<h2>dlutils.random_rotation module<a class="headerlink" href="#dlutils-random-rotation-module" title="Permalink to this headline">¶</a></h2>
+<p>Random rotation matrix</p>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.random_rotation.</code><code class="sig-name descname">random_rotation</code><span class="sig-paren">(</span><em class="sig-param">size</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/random_rotation.html#random_rotation"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="dlutils-reader-module">
+<h2>dlutils.reader module<a class="headerlink" href="#dlutils-reader-module" title="Permalink to this headline">¶</a></h2>
+<p>Util for reading MNIST dataset</p>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.reader.</code><code class="sig-name descname">Cifar10</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">train=True</em>, <em class="sig-param">test=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Cifar10"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Read CIFAR out of binary batches</p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_images</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Cifar10.get_images"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_labels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Cifar10.get_labels"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.reader.</code><code class="sig-name descname">Cifar100</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">train=True</em>, <em class="sig-param">test=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Cifar100"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Read CIFAR out of binary batches</p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_images</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Cifar100.get_images"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_labels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Cifar100.get_labels"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.reader.</code><code class="sig-name descname">Mnist</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">items=None</em>, <em class="sig-param">train=True</em>, <em class="sig-param">test=False</em>, <em class="sig-param">resize_to_32x32=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Mnist"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<p>Read MNIST out of binary batches</p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_images</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Mnist.get_images"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">get_labels</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/reader.html#Mnist.get_labels"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-registry-module">
+<h2>dlutils.registry module<a class="headerlink" href="#dlutils-registry-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.registry.</code><code class="sig-name descname">Registry</code><span class="sig-paren">(</span><em class="sig-param">*args</em>, <em class="sig-param">**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/registry.html#Registry"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#dict" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">dict</span></code></a></p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">register</code><span class="sig-paren">(</span><em class="sig-param">module_name</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/registry.html#Registry.register"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-save-image-module">
+<h2>dlutils.save_image module<a class="headerlink" href="#dlutils-save-image-module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.</code><code class="sig-name descname">make_grid</code><span class="sig-paren">(</span><em class="sig-param">images</em>, <em class="sig-param">nrow=8</em>, <em class="sig-param">padding=2</em>, <em class="sig-param">NCWH=False</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/save_image.html#make_grid"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.</code><code class="sig-name descname">save_image</code><span class="sig-paren">(</span><em class="sig-param">images</em>, <em class="sig-param">filename</em>, <em class="sig-param">nrow=8</em>, <em class="sig-param">padding=2</em>, <em class="sig-param">NCWH=False</em>, <em class="sig-param">format=None</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/save_image.html#save_image"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</div>
+<div class="section" id="dlutils-shuffle-module">
+<h2>dlutils.shuffle module<a class="headerlink" href="#dlutils-shuffle-module" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.shuffle.</code><code class="sig-name descname">shuffle_ndarray</code><span class="sig-paren">(</span><em class="sig-param">x</em>, <em class="sig-param">axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/shuffle.html#shuffle_ndarray"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Shuffle slices of ndarray along specific axis.</p>
+<p>For example, given a 4-dimentional ndarray, which represents a batch of images in BCHW format, one could
+shuffle samples in that batch by applying <a class="reference internal" href="shuffle.html#dlutils.shuffle.shuffle_ndarray" title="dlutils.shuffle.shuffle_ndarray"><code class="xref py py-func docutils literal notranslate"><span class="pre">shuffle_ndarray()</span></code></a> with <code class="xref py py-attr docutils literal notranslate"><span class="pre">axis</span></code> = 0.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Function does not return anything. It shuffles ndarray inplace.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>x</strong> (<em>array_like</em>) – ndarray to shuffle.</p></li>
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – The axis over which to shuffle. Defaults to 0.</p></li>
+</ul>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">asarray</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[1, 5],</span>
+<span class="go">       [0, 2],</span>
+<span class="go">       [0, 1]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dlutils</span><span class="o">.</span><span class="n">shuffle</span><span class="o">.</span><span class="n">shuffle_ndarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[0, 2],</span>
+<span class="go">       [0, 1],</span>
+<span class="go">       [1, 5]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dlutils</span><span class="o">.</span><span class="n">shuffle</span><span class="o">.</span><span class="n">shuffle_ndarray</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span>
+<span class="go">array([[2, 0],</span>
+<span class="go">       [1, 0],</span>
+<span class="go">       [5, 1]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.shuffle.</code><code class="sig-name descname">shuffle_ndarrays_in_unison</code><span class="sig-paren">(</span><em class="sig-param">arrays</em>, <em class="sig-param">axis=0</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/shuffle.html#shuffle_ndarrays_in_unison"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Shuffle slices of a list of ndarrays along specific axis with the same permutation for each of the
+arrays in the list.</p>
+<p>Works similar to <a class="reference internal" href="shuffle.html#dlutils.shuffle.shuffle_ndarray" title="dlutils.shuffle.shuffle_ndarray"><code class="xref py py-func docutils literal notranslate"><span class="pre">shuffle_ndarray()</span></code></a>, but applys the same permutation to all arrays in the list</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Function does not return anything. It shuffles ndarray inplace.
+All arrays in the list should have the same shape.</p>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>arrays</strong> (<a class="reference external" href="https://docs.python.org/3/library/stdtypes.html#list" title="(in Python v3.8)"><em>list</em></a><em>[</em><em>array_like</em><em>]</em>) – list of ndarrays to shuffle.</p></li>
+<li><p><strong>axis</strong> (<a class="reference external" href="https://docs.python.org/3/library/functions.html#int" title="(in Python v3.8)"><em>int</em></a><em>, </em><em>optional</em>) – The axis over which to shuffle. Defaults to 0.</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-timer-module">
+<h2>dlutils.timer module<a class="headerlink" href="#dlutils-timer-module" title="Permalink to this headline">¶</a></h2>
+<p>Profiling utils</p>
+<dl class="function">
+<dt>
+<code class="sig-prename descclassname">dlutils.timer.</code><code class="sig-name descname">timer</code><span class="sig-paren">(</span><em class="sig-param">f</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/timer.html#timer"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Decorator for timeing function (method) execution time.</p>
+<p>After return from function will print string: <code class="docutils literal notranslate"><span class="pre">func:</span> <span class="pre">&lt;function</span> <span class="pre">name&gt;</span> <span class="pre">took:</span> <span class="pre">&lt;time</span> <span class="pre">in</span> <span class="pre">seconds&gt;</span> <span class="pre">sec</span></code>.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>f</strong> (<em>Callable</em><em>[</em><em>Any</em><em>]</em>) – function to decorate.</p>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>Decorated function.</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>Callable[Any]</p>
+</dd>
+</dl>
+<p class="rubric">Example</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">dlutils</span> <span class="k">import</span> <span class="n">timer</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nd">@timer</span><span class="o">.</span><span class="n">timer</span>
+<span class="gp">... </span><span class="k">def</span> <span class="nf">foo</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="gp">... </span>            <span class="k">pass</span>
+<span class="gp">...</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">foo</span><span class="p">(</span><span class="mi">100000</span><span class="p">)</span>
+<span class="go">func:&#39;foo&#39;  took: 0.0019 sec</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="dlutils-tracker-module">
+<h2>dlutils.tracker module<a class="headerlink" href="#dlutils-tracker-module" title="Permalink to this headline">¶</a></h2>
+<dl class="class">
+<dt>
+<em class="property">class </em><code class="sig-prename descclassname">dlutils.tracker.</code><code class="sig-name descname">LossTracker</code><span class="sig-paren">(</span><em class="sig-param">output_dir='.'</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker"><span class="viewcode-link">[source]</span></a></dt>
+<dd><p>Bases: <a class="reference external" href="https://docs.python.org/3/library/functions.html#object" title="(in Python v3.8)"><code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></a></p>
+<dl class="method">
+<dt>
+<code class="sig-name descname">add</code><span class="sig-paren">(</span><em class="sig-param">name</em>, <em class="sig-param">pytorch=True</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker.add"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">load_state_dict</code><span class="sig-paren">(</span><em class="sig-param">state_dict</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker.load_state_dict"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">plot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker.plot"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">register_means</code><span class="sig-paren">(</span><em class="sig-param">epoch</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker.register_means"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">state_dict</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker.state_dict"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt>
+<code class="sig-name descname">update</code><span class="sig-paren">(</span><em class="sig-param">d</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/dlutils/tracker.html#LossTracker.update"><span class="viewcode-link">[source]</span></a></dt>
+<dd></dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-contents">
+<h2>Module contents<a class="headerlink" href="#module-contents" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019-2020, Stanislav Pidhorskyi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>
