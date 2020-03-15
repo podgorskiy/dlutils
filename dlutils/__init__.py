@@ -26,6 +26,7 @@ from dlutils.cache import *
 from dlutils.async import *
 from dlutils.default_cfg import *
 from dlutils.tracker import *
+from dlutils.block_process import block_process_2d
 from dlutils.numpy_dataset import NumpyDataset
 
 from dlutils.pytorch.jacobian import jacobian

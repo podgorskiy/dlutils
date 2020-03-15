@@ -20,6 +20,7 @@ Welcome to dlutils |version|  documentation!
    measures
    cache
    async
+   block_process_2d
    reader
 
 :doc:`readme`
@@ -54,6 +55,9 @@ Welcome to dlutils |version|  documentation!
 
 :doc:`async`
     Decorator for concurrent execution.
+
+:doc:`block_process_2d`
+    Processing a large tensor by chunking.
 
 :doc:`reader`
     Readers from binary MNIST, CIFAR-10, CIFAR-100.
