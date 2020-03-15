@@ -15,7 +15,7 @@
 import torch
 
 
-def block_process_2d(data, func, block_size=512, overlap=32):
+def block_process_2d(data, func, block_size=512, overlap=32, intermediate_as_double=False):
     """ Applies function to the given 4-dimensional tensor by chucking it in 2 dimensions and processing each chunk
     separately.
 
@@ -32,6 +32,7 @@ def block_process_2d(data, func, block_size=512, overlap=32):
         func (Callable): Function to be used on `data`
         block_size (int): Size of chunks
         overlap (int): Tells how much chunks should overlap
+        intermediate_as_double (bool): Use `double` for intermidiate representation, improves accuracy
 
     Returns:
         torch.Tensor or list[torch.Tensor]: Result of the function `func` applied to input `data`
@@ -40,23 +41,13 @@ def block_process_2d(data, func, block_size=512, overlap=32):
 
         ::
 
-            def process(batch):
-                images = [misc.imread(x[0]) for x in batch]
-                images = np.asarray(images, dtype=np.float32)
-                images = images.transpose((0, 3, 1, 2))
-                labeles = [x[1] for x in batch]
-                labeles = np.asarray(labeles, np.int)
-                return torch.from_numpy(images) / 255.0, torch.from_numpy(labeles)
+            def f(x):
+                assert x.shape[2] <= 64
+                assert x.shape[3] <= 64
+                return x * x + x * x
 
-            data = [('some_list.jpg', 1), ('of_filenames.jpg', 2), ('etc.jpg', 4), ...] # filenames and labels
-            batches = dlutils.batch_provider(data, 32, process)
-
-            for images, labeles in batches:
-                result = model(images)
-                loss = F.nll_loss(result, labeles)
-                loss.backward()
-                optimizer.step()
-
+            x = torch.ones(3, 3, 512, 512, dtype=torch.float32)
+            r = dlutils.block_process_2d(x, f, block_size=32, overlap=8)
 
     """
 
@@ -108,11 +99,11 @@ def block_process_2d(data, func, block_size=512, overlap=32):
         raise ValueError("Function must return either torch.Tensor, either list of torch.Tensor.")
 
     for tensor in results[0]:
-        output.append(torch.zeros(*tensor.shape[:2], height, width, dtype=tensor.dtype))
+        output.append(torch.zeros(*tensor.shape[:2], height, width, dtype=torch.double if intermediate_as_double else tensor.dtype))
 
-    counts = torch.zeros(*results[0][0].shape[:2], height, width, dtype=torch.float32)
+    counts = torch.zeros(1, 1, height, width, dtype=torch.double)
 
-    weight_mask = torch.ones(*results[0][0].shape[:2], block_size, block_size, dtype=torch.float32)
+    weight_mask = torch.ones(1, 1, block_size, block_size, dtype=torch.double)
 
     for i in range(overlap):
         weight_mask[:, :, :, i] *= ((i + 1) / overlap)
@@ -128,8 +119,16 @@ def block_process_2d(data, func, block_size=512, overlap=32):
         for o, r in zip(output, res):
             o[:, :, offset_y:offset_y + h, offset_x:offset_x + w] += r * weight_mask
 
-    for o in output:
-        o /= counts
+    if intermediate_as_double:
+        _output = []
+        for o, i in zip(output, results[0]):
+            o /= counts
+            _output.append(o.type(i.dtype))
+        output = _output
+        del _output
+    else:
+        for o in output:
+            o /= counts
 
     if returns_value:
         return output[0]
@@ -156,3 +155,14 @@ if __name__ == '__main__':
     r = block_process_2d(x, f2, block_size=32, overlap=8)
 
     print(r)
+
+    x = torch.randn(3, 3, 512, 512, dtype=torch.float32)
+    r = block_process_2d(x, f, block_size=32, overlap=8, intermediate_as_double=True)
+
+    assert torch.all(torch.abs(r - (x * x + x * x)) < 1e-18)
+
+    x = torch.randn(3, 3, 512, 512, dtype=torch.float32)
+    r = block_process_2d(x, f, block_size=32, overlap=8, intermediate_as_double=False)
+
+    assert torch.all(torch.abs(r - (x * x + x * x)) < 1e-5)
+
