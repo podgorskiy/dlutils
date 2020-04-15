@@ -64,12 +64,15 @@ def from_google_drive(google_drive_fileid, directory=".", file_name=None, extrac
     opener = request.build_opener(request.HTTPCookieProcessor(cj))
     u = opener.open(url)
     cookie = cookies.SimpleCookie()
-    cookie.load(u.info().get("set-cookie"))
+    c = u.info().get("set-cookie")
+    if c:
+        cookie.load(c)
     token = ""
     for key, value in cookie.items():
         if key.startswith('download_warning'):
             token = value.value
-    url += "&confirm=" + token
+    if c:
+        url += "&confirm=" + token
     request_obj = opener.open(url)
     _download(request_obj, url, directory, file_name, extract_targz, extract_gz, extract_zip)
 

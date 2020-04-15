@@ -16,7 +16,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='dlutils',
 
-    version='0.0.7',
+    version='0.0.8',
 
     description='dlutils - collection of boilerplate code, usefull primitives, helpers.',
     long_description=long_description,
@@ -33,6 +33,8 @@ setup(
         'License :: OSI Approved :: Apache Software License',
         'Programming Language :: Python :: 2.7',
         'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
+        'Programming Language :: Python :: 3.8',
         'Topic :: Scientific/Engineering :: Artificial Intelligence',
     ],
 
