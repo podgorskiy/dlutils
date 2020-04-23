@@ -16,7 +16,7 @@ with open(os.path.join(here, 'README.rst'), encoding='utf-8') as f:
 setup(
     name='dlutils',
 
-    version='0.0.9',
+    version='0.0.10',
 
     description='dlutils - collection of boilerplate code, usefull primitives, helpers.',
     long_description=long_description,
