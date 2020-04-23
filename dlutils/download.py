@@ -74,6 +74,8 @@ def from_google_drive(google_drive_fileid, directory=".", file_name=None, extrac
     if c:
         url += "&confirm=" + token
     request_obj = opener.open(url)
+    if str(request_obj.getheader('Content-type')).startswith('text/html'):
+        raise RuntimeError('Could not download file.\n' + request_obj.fp.readlines())
     _download(request_obj, url, directory, file_name, extract_targz, extract_gz, extract_zip)
 
 
