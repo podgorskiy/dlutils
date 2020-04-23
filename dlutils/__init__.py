@@ -36,3 +36,5 @@ from dlutils.pytorch import lr_eq_adam
 from dlutils.pytorch import lr_eq_sgd
 from dlutils.pytorch import lr_eq
 from dlutils.pytorch.checkpointer import Checkpointer
+
+__version__ = '0.0.12'
