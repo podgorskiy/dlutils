@@ -23,7 +23,7 @@ from dlutils import shuffle
 from dlutils import timer
 from dlutils.save_image import *
 from dlutils.cache import *
-from dlutils.async import *
+from dlutils.async_calls import *
 from dlutils.default_cfg import *
 from dlutils.tracker import *
 from dlutils.block_process import block_process_2d
