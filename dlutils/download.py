@@ -75,7 +75,12 @@ def from_google_drive(google_drive_fileid, directory=".", file_name=None, extrac
         url += "&confirm=" + token
     request_obj = opener.open(url)
     if str(request_obj.getheader('Content-type')).startswith('text/html'):
-        raise RuntimeError('Could not download file.\n' + request_obj.fp.readlines())
+        content = request_obj.fp.read()
+        if len(content) < 8192:
+            content_str = content.decode("utf-8")
+            if "Google Drive - Quota exceeded" in content_str:
+                raise IOError("Google Drive quota exceeded. Please try again later")
+        raise IOError('Could not download file')
     _download(request_obj, url, directory, file_name, extract_targz, extract_gz, extract_zip)
 
 
