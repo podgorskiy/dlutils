@@ -1,5 +1,4 @@
 import torch
-from torch.autograd.gradcheck import zero_gradients
 
 
 def jacobian(inputs, output):
@@ -19,7 +18,8 @@ def jacobian(inputs, output):
         J = J.cuda()
 
     for i in range(num_classes):
-        zero_gradients(inputs)
+        if inputs.grad is not None:
+            inputs.grad.zero_()
         grad_output.zero_()
         grad_output[:, i] = 1
         output.backward(grad_output, retain_graph=True)
